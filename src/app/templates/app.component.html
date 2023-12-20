@@ -1,0 +1,23 @@
+<main class="main">
+  <h1>Pokemons List</h1>
+  <input
+    #input
+    (keyup)="filterPokemons(input.value)"
+    type="text"
+    placeholder="Type a pokemon name"
+  />
+
+  <ul class="pokemon-list">
+    @for (pokemon of pokemonSelected; track pokemon) {
+    <li class="pokemon-item">
+      <img src="{{ pokemon?.picture }}" />
+      <p>Name: {{ pokemon?.name }}</p>
+      <p>HP: {{ pokemon?.hp }}</p>
+      <p>CP: {{ pokemon?.cp }}</p>
+      <p>Types:{{ pokemon?.types }}</p>
+    </li>
+    }
+  </ul>
+</main>
+
+<router-outlet></router-outlet>
