@@ -1,0 +1,14 @@
+<main class="main">
+  <div class="container">
+    <h1 class="">Pokédex</h1>
+    <ul>
+    @for (pokemon of pokemons; track pokemon) {
+      <li>
+        {{ pokemon }}
+      </li>
+    }
+    </ul>
+  </div>
+</main>
+
+<router-outlet></router-outlet>
