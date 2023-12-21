@@ -25,24 +25,29 @@ export class AppComponent implements OnInit {
   searchByName(pokemonName: string) {
     const pokemonNameToLowerCase = pokemonName.toLowerCase();
 
+    if (pokemonNameToLowerCase === '') {
+      this.pokemonSelected = [];
+      return;
+    }
     const foundPokemon = this.pokemonList.filter((pokemon) => {
       return pokemon.name.toLowerCase().includes(pokemonNameToLowerCase);
     });
 
     this.pokemonSelected = foundPokemon;
-
-    console.log('in searchbyname',this.pokemonSelected);
   }
 
   searchById(id: string) {
     const parseId: number = parseInt(id);
+
+    if (parseId <= 0) {
+      this.pokemonSelected = [];
+      return;
+    }
 
     const foundPokemon = this.pokemonList.filter(
       (pokemon) => pokemon.id === parseId
     );
 
     this.pokemonSelected = foundPokemon;
-
-    console.log('in searchbyid',this.pokemonSelected);
   }
 }
