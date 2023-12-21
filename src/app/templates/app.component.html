@@ -1,5 +1,5 @@
 <main class="main">
-  <h1>Pokemons List</h1>
+  <h1 class="center">Pokemons List</h1>
 
   <input
     #inputsearchbyid
@@ -15,22 +15,28 @@
     placeholder="Type a pokemon name"
   />
 
-<div>
-  <ul *ngIf="pokemonSelected" class="pokemon-list">
-    @for (pokemon of pokemonSelected; track pokemon) {
-    <li class="pokemon-item">
-      <img src="{{ pokemon?.picture }}" />
-      <p>ID: {{ pokemon?.id }}</p>
-      <p>Name: {{ pokemon?.name }}</p>
-      <p>HP: {{ pokemon?.hp }}</p>
-      <p>CP: {{ pokemon?.cp }}</p>
-      <p>Types:{{ pokemon?.types }}</p>
-    </li>
-    }
-  </ul>
-</div>
+  <div *ngIf="pokemonSelected" class="container">
+    <div class="row">
+      <div *ngFor="let pokemon of pokemonList" class="col m4 s6">
+        <div class="card horizontal">
+          <div class="card-image">
+            <img src="{{ pokemon?.picture }}" alt="url pokemon image" class="img_pokemon" />
+          </div>
+          <div class="card-stacked">
+            <div class="card-content">
+              <p>ID: {{ pokemon?.id }}</p>
+              <p>Name: {{ pokemon?.name }}</p>
+              <p>HP: {{ pokemon?.hp }}</p>
+              <p>CP: {{ pokemon?.cp }}</p>
+              <p>Types:{{ pokemon?.types }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p *ngIf="!pokemonSelected">No pokemon selected</p>
+  <p *ngIf="!pokemonSelected" class="center">No pokemon selected</p>
 </main>
 
 <router-outlet></router-outlet>
