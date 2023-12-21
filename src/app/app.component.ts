@@ -13,32 +13,36 @@ import { Pokemon } from './models/pokemon';
 })
 export class AppComponent implements OnInit {
   pokemonList: Pokemon[] = POKEMONS;
-  pokemonSelected: Pokemon[];
+  pokemonSelected: Pokemon[] | undefined[] | undefined = [];
 
-  /**
-   * Initializes the component.
-   *
-   * @return {void} No return value.
-   */
   ngOnInit() {
     console.log(`init AppComponent`);
 
     // Display all pokemons by default
-    this.pokemonSelected = this.pokemonList;
+    // this.pokemonSelected = this.pokemonList;
   }
 
-  /**
-   * Filters the list of Pokemons based on the given name.
-   *
-   * @param pokemonName - The name of the Pokemon to filter by.
-   * @returns An array of Pokemon objects that match the given name.
-   */
-  filterPokemons(pokemonName: string) {
-    return (this.pokemonSelected = this.pokemonList.filter((pokemon) => {
-      if (pokemon.name.toLowerCase().includes(pokemonName.toLowerCase())) {
-        return pokemon;
-      }
-      return undefined;
-    }));
+  searchByName(pokemonName: string) {
+    const pokemonNameToLowerCase = pokemonName.toLowerCase();
+
+    const foundPokemon = this.pokemonList.filter((pokemon) => {
+      return pokemon.name.toLowerCase().includes(pokemonNameToLowerCase);
+    });
+
+    this.pokemonSelected = foundPokemon;
+
+    console.log('in searchbyname',this.pokemonSelected);
+  }
+
+  searchById(id: string) {
+    const parseId: number = parseInt(id);
+
+    const foundPokemon = this.pokemonList.filter(
+      (pokemon) => pokemon.id === parseId
+    );
+
+    this.pokemonSelected = foundPokemon;
+
+    console.log('in searchbyid',this.pokemonSelected);
   }
 }
