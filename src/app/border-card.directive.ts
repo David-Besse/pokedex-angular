@@ -8,20 +8,20 @@ export class BorderCardDirective {
   constructor(private el: ElementRef) {}
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.setBorder('#009688');
     this.setScale(1.05);
+    this.setBoxShadow('0 0 4px 4px inset rgba(0,0,0,0.2)');
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.setBorder('#f5f5f5');
     this.setScale(1);
-  }
-
-  setBorder(color: string) {
-    this.el.nativeElement.style.border = `solid 4px ${color}`;
+    this.setBoxShadow('0 0 2px 2px rgba(0,0,0,0.2)')
   }
 
   setScale(scale: number) {
     this.el.nativeElement.style.transform = `scale(${scale})`;
+  }
+
+  setBoxShadow(boxShadow: string) {
+    this.el.nativeElement.style.boxShadow = `${boxShadow}`;
   }
 }
