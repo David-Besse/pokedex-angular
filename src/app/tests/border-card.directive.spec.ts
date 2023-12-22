@@ -1,4 +1,4 @@
-import { BorderCardDirective } from './border-card.directive';
+import { BorderCardDirective } from '../border-card.directive';
 
 describe('BorderCardDirective', () => {
   it('should create an instance', () => {
