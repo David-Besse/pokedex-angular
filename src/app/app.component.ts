@@ -4,11 +4,17 @@ import { RouterOutlet } from '@angular/router';
 import { POKEMONS } from './models/mock.pokemon-list';
 import { Pokemon } from './models/pokemon';
 import { BorderCardDirective } from './border-card.directive';
+import { PokemonTypeColorPipe } from './pokemon-type-color.pipe';
 
 @Component({
   selector: 'app-root', // name of the component
   standalone: true, // this component can be used in other components
-  imports: [CommonModule, RouterOutlet, BorderCardDirective], // import other modules
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    BorderCardDirective,
+    PokemonTypeColorPipe,
+  ], // import modules
   templateUrl: './templates/app.component.html', // path to the template
   styleUrl: './templates/app.component.scss', // path to the stylesheet
 })
@@ -20,16 +26,23 @@ export class AppComponent implements OnInit {
     console.log(`init AppComponent`);
 
     // Display all pokemons by default
-    // this.pokemonSelected = this.pokemonList;
+    this.pokemonSelected = this.pokemonList;
   }
 
   searchByName(pokemonName: string) {
-    const pokemonNameToLowerCase = pokemonName.toLowerCase();
+    const pokemonNameToLowerCase: string = pokemonName.toLowerCase();
 
-    if (!pokemonNameToLowerCase || pokemonNameToLowerCase === '') {
-      this.pokemonSelected = undefined;
-      return;
+    switch (pokemonNameToLowerCase) {
+      case undefined: {
+        this.pokemonSelected = undefined;
+        break;
+      }
+      default: {
+        this.pokemonSelected = this.pokemonList;
+        break;
+      }
     }
+
     const foundPokemon = this.pokemonList.filter((pokemon) => {
       return pokemon.name.toLowerCase().includes(pokemonNameToLowerCase);
     });
