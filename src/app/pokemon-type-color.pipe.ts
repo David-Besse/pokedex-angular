@@ -18,7 +18,7 @@ const colors: { [key: string]: string } = {
   Dragon: '#4f60e2',
   Ténèbres: '#4e3e3c',
   Spectre: '#703f70',
-  Acier: '#60a2b9'
+  Acier: '#60a2b9',
 };
 
 @Pipe({ name: 'pokemonTypeColor', standalone: true })
