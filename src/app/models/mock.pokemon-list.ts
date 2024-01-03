@@ -47,24 +47,6 @@ export const POKEMONS: Pokemon[] = [
         created: new Date()
     },
     {
-        id: 6,
-        name: "Rattata",
-        hp: 18,
-        cp: 6,
-        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png",
-        types: ["Normal"],
-        created: new Date()
-    },
-    {
-        id: 7,
-        name: "Piafabec",
-        hp: 14,
-        cp: 5,
-        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/021.png",
-        types: ["Normal", "Vol"],
-        created: new Date()
-    },
-    {
         id: 8,
         name: "Abo",
         hp: 16,
@@ -88,7 +70,7 @@ export const POKEMONS: Pokemon[] = [
         hp: 19,
         cp: 3,
         picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/027.png",
-        types: ["Normal"],
+        types: ["Sol"],
         created: new Date()
     },
     {
@@ -108,5 +90,59 @@ export const POKEMONS: Pokemon[] = [
         picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/037.png",
         types: ["Feu"],
         created: new Date()
-    }
+    },
+    {
+        id: 147,
+        name: "Mini-draco",
+        hp: 17,
+        cp: 8,
+        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/147.png",
+        types: ["Dragon"],
+        created: new Date()
+    },
+    {
+        id: 92,
+        name: "Fantominus",
+        hp: 17,
+        cp: 8,
+        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/092.png",
+        types: ["Spectre", "Poison"],
+        created: new Date(),
+    },
+    {
+        id: 66,
+        name: "Machoc",
+        hp: 17,
+        cp: 8,
+        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/066.png",
+        types: ["Combat"],
+        created: new Date(),
+    },
+    {
+        id: 63,
+        name: "Abra",
+        hp: 17,
+        cp: 8,
+        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/063.png",
+        types: ["Psy"],
+        created: new Date(),
+    },
+    {
+        id: 140,
+        name: "Kabuto",
+        hp: 17,
+        cp: 8,
+        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/140.png",
+        types: ["Roche", "Eau"],
+        created: new Date(),
+    },
+    {
+        id: 27,
+        name: "Sabelette d'Alola",
+        hp: 17,
+        cp: 8,
+        picture: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/027.png",
+        types: ["Glace", "Acier"],
+        created: new Date(),
+    },
 ];

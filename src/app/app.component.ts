@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { POKEMONS } from './models/mock.pokemon-list';
 import { Pokemon } from './models/pokemon';
+import { PokemonTypeColorPipe } from "./pokemon-type-color.pipe";
 import { BorderCardDirective } from './border-card.directive';
-import { PokemonTypeColorPipe } from './pokemon-type-color.pipe';
 
 @Component({
-  selector: 'app-root', // name of the component
-  standalone: true, // this component can be used in other components
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    BorderCardDirective,
-    PokemonTypeColorPipe,
-  ], // import modules
-  templateUrl: './templates/app.component.html', // path to the template
-  styleUrl: './templates/app.component.scss', // path to the stylesheet
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './templates/app.component.html',
+    styleUrl: './templates/app.component.scss',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        PokemonTypeColorPipe,
+        BorderCardDirective,
+    ]
 })
 export class AppComponent implements OnInit {
   pokemonList: Pokemon[] = POKEMONS;

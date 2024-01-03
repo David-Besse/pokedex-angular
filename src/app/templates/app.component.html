@@ -34,12 +34,13 @@
         <p class="mb-2">CP: {{ pokemon?.cp }}</p>
         <span
           *ngFor="let type of pokemon?.types"
-          class="mb-2 mr-1 py-1 px-2 border rounded-xl {{
-            type | pokemonTypeColor
-          }}"
+          class="mr-1 py-1 px-2 rounded-xl text-white"
+          [ngStyle]="{ 'background-color': type | pokemonTypeColor }"
           >{{ type }}</span
         >
-        <p class="mt-2">Created: {{ pokemon?.created | date : "dd/MM/yyyy" }}</p>
+        <p class="mt-2">
+          Created: {{ pokemon?.created | date : "dd/MM/yyyy" }}
+        </p>
       </div>
     </div>
   </div>
