@@ -1,32 +1,40 @@
-<div
-  *ngIf="pokemonSelected && pokemonSelected.length > 0"
-  class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-2 gap-6"
->
+<div class="flex flex-col items-center justify-center">
   <div
-    *ngFor="let pokemon of pokemonSelected"
-    class="flex flex-col items-center p-2 shadow-[0_0_2px_2px_rgba(0,0,0,0.2)] rounded-lg"
-    appBorderCard
+    *ngIf="pokemonSelected && pokemonSelected.length > 0"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 py-20 xl:py-28 gap-6"
   >
-    <img src="{{ pokemon?.picture }}" alt="url pokemon image" />
-    <div class="">
-      <p>ID: {{ pokemon?.id }}</p>
-      <p>Name: {{ pokemon?.name }}</p>
-      <p>HP: {{ pokemon?.hp }}</p>
-      <p class="mb-2">CP: {{ pokemon?.cp }}</p>
-      <span
-        *ngFor="let type of pokemon?.types"
-        class="mr-1 py-1 px-2 rounded-xl text-white"
-        [ngStyle]="{ 'background-color': type | pokemonTypeColor }"
-        >{{ type }}</span
-      >
-      <p class="mt-2">Created: {{ pokemon?.created | date : "dd/MM/yyyy" }}</p>
+    <div
+      *ngFor="let pokemon of pokemonSelected"
+      class="w-full flex flex-col items-center p-4 rounded-xl bg-white border-8 border-gray-300"
+      appBorderCard
+    >
+      <img
+        src="{{ pokemon?.picture }}"
+        alt="url pokemon image"
+        class="border border-gray-200 w-[250px] h-[250px] sm:w-[200px] sm:h-[200px] rounded-full object-cover mb-2"
+      />
+      <div class="self-start p-2">
+        <p>ID: {{ pokemon?.id }}</p>
+        <p>Name: {{ pokemon?.name }}</p>
+        <p>HP: {{ pokemon?.hp }}</p>
+        <p class="mb-2">CP: {{ pokemon?.cp }}</p>
+        <span
+          *ngFor="let type of pokemon?.types"
+          class="mr-1 px-2 py-1 rounded-full text-white"
+          [ngStyle]="{ 'background-color': type | pokemonTypeColor }"
+          >{{ type }}</span
+        >
+        <p class="mt-2">
+          Created: {{ pokemon?.created | date : "dd/MM/yyyy" }}
+        </p>
+      </div>
     </div>
   </div>
-</div>
 
-<p
-  *ngIf="!pokemonSelected || pokemonSelected.length === 0"
-  class="text-base text-gray-400"
->
-  No pokemon selected
-</p>
+  <p
+    *ngIf="!pokemonSelected || pokemonSelected.length === 0"
+    class="text-base text-gray-400"
+  >
+    No pokemon selected
+  </p>
+</div>
