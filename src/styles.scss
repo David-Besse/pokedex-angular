@@ -7,3 +7,9 @@
   font-family: "Pokemon";
   src: url("./assets/Pokemon_Solid.ttf");
 }
+
+body {
+  background-image: url("https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
+  background-position: center;
+  background-size: cover;
+}
