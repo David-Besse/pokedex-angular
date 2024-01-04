@@ -4,29 +4,23 @@
 >
   <div class="w-[90%] flex flex-col items-center">
     <h2
-      class="self-start text-3xl lg:text-4xl font-bold text-gray-800 mb-20"
+      class="self-start text-3xl lg:text-4xl font-bold text-gray-800 mb-10"
     >
       {{ pokemonSelected.name }}
       <span class="text-gray-500">#{{ pokemonSelected.id }}</span>
     </h2>
     <div
-      class="w-full sm:w-[700px] flex flex-col sm:flex-row bg-white rounded-xl shadow p-2 border-[1rem] border-gray-200 mb-10"
+      class="w-full sm:w-[700px] flex flex-col sm:flex-row bg-white p-2 mb-10 shadow-[0_0_4px_4px_inset_rgba(0,0,0,0.2)] rounded-xl"
     >
       <img
         [src]="pokemonSelected.picture"
         alt="url pokemon image"
-        class="w-[250px] h-[250px] rounded-full object-cover mx-auto"
+        class="w-[250px] h-[250px] rounded object-cover mx-auto"
       />
 
       <div class="sm:w-4/6 flex items-center justify-center">
         <table>
           <tbody>
-            <tr class="">
-              <td class="text-gray-600 py-2 pr-8">Name</td>
-              <td class="text-gray-800 py-2">
-                <strong>{{ pokemonSelected.name }}</strong>
-              </td>
-            </tr>
             <tr class="">
               <td class="text-gray-600 pb-2 pr-8">HP</td>
               <td class="text-gray-800 pb-2">
