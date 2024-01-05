@@ -1,4 +1,4 @@
-import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
+import { PokemonTypeColorPipe } from './pokemon-type-color.pipe';
 
 describe('PokemonTypeColorPipe', () => {
   it('create an instance', () => {

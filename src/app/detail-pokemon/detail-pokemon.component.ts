@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { POKEMONS } from '../models/mock.pokemon-list';
-import { Pokemon } from '../models/pokemon';
+import { POKEMONS } from '../mock.pokemon-list';
+import { Pokemon } from '../pokemon';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 
 @Component({

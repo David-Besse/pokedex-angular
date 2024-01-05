@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { POKEMONS } from '../models/mock.pokemon-list';
-import { Pokemon } from '../models/pokemon';
+import { POKEMONS } from '../mock.pokemon-list';
+import { Pokemon } from '../pokemon';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { BorderCardDirective } from '../border-card.directive';
 import { Router } from '@angular/router';
