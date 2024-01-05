@@ -8,13 +8,15 @@ export class BorderCardDirective {
   constructor(private el: ElementRef) {}
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.setScale(1.05);
-    this.setBoxShadow('0 0 4px 4px inset rgba(0,0,0,0.2)');
+    this.setScale(1.1);
+    this.setBoxShadow('0 0 4px 4px rgba(0, 0, 8, 0.4)');
+    this.setZindex(1);
   }
 
   @HostListener('mouseleave') onMouseLeave() {
     this.setScale(1);
-    this.setBoxShadow('0 0 2px 2px rgba(0,0,0,0.2)')
+    this.setBoxShadow('unset');
+    this.setZindex(0);
   }
 
   setScale(scale: number) {
@@ -23,5 +25,9 @@ export class BorderCardDirective {
 
   setBoxShadow(boxShadow: string) {
     this.el.nativeElement.style.boxShadow = `${boxShadow}`;
+  }
+
+  setZindex(zindex: number) {
+    this.el.nativeElement.style.zIndex = `${zindex}`;
   }
 }
