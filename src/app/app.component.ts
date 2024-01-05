@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-// import { POKEMONS } from './models/mock.pokemon-list';
-// import { Pokemon } from './models/pokemon';
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,43 +8,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './templates/app.component.scss',
   imports: [RouterOutlet],
 })
-export class AppComponent {
-  // pokemonList: Pokemon[] = POKEMONS;
-  // pokemonSelected: Pokemon[] | undefined;
-  // ngOnInit() {
-  //   console.log(`init AppComponent`);
-  //   // Display all pokemons by default
-  //   this.pokemonSelected = this.pokemonList;
-  // }
-  // searchByName(pokemonName: string) {
-  //   const pokemonNameToLowerCase: string = pokemonName.toLowerCase();
-  //   switch (pokemonNameToLowerCase) {
-  //     case undefined: {
-  //       this.pokemonSelected = undefined;
-  //       break;
-  //     }
-  //     default: {
-  //       this.pokemonSelected = this.pokemonList;
-  //       break;
-  //     }
-  //   }
-  //   const foundPokemon = this.pokemonList.filter((pokemon) => {
-  //     return pokemon.name.toLowerCase().includes(pokemonNameToLowerCase);
-  //   });
-  //   this.pokemonSelected = foundPokemon;
-  // }
-  // searchById(id: string) {
-  //   const parseId: number | undefined = parseInt(id);
-  //   if (parseId === undefined || parseId <= 0) {
-  //     this.pokemonSelected = this.pokemonList;
-  //     return;
-  //   }
-  //   const foundPokemon = this.pokemonList.filter(
-  //     (pokemon) => pokemon.id === parseId
-  //   );
-  //   this.pokemonSelected = foundPokemon;
-  // }
-  // selectPokemon(pokemon: Pokemon) {
-  //   console.log(`select pokemon ${pokemon.name}`);
-  // }
-}
+export class AppComponent {}

@@ -4,6 +4,7 @@ import { POKEMONS } from '../models/mock.pokemon-list';
 import { Pokemon } from '../models/pokemon';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { BorderCardDirective } from '../border-card.directive';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -16,10 +17,16 @@ export class ListPokemonComponent implements OnInit {
   pokemonList: Pokemon[] = POKEMONS;
   pokemonSelected: Pokemon[] | undefined;
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
     console.log(`init AppComponent`);
 
     // Display all pokemons by default
     this.pokemonSelected = this.pokemonList;
+  }
+
+  selectPokemon(pokemon: Pokemon) {
+    this.router.navigate(['/pokemons', pokemon.id]);
   }
 }

@@ -55,13 +55,13 @@
       </div>
     </div>
     <div class="flex">
-      <a class="mr-2">Retour</a>
-      <a class="mr-2">Éditer</a>
-      <a>Supprimer</a>
+      <button class="mr-4" (click)="goBack()" (keyup.enter)="goBack()">Retour</button>
+      <button class="mr-4">Éditer</button>
+      <button>Supprimer</button>
     </div>
   </div>
 </div>
-<h4 *ngIf="!pokemonSelected" class="text-center top-1/2 text-2xl lg:text-4xl mt-12">
+<h4 *ngIf="!pokemonSelected" class="text-center top-1/2 text-2xl lg:text-4xl mt-32">
   <!-- <app-loader></app-loader> -->
   aucun pokemon sélectionné
 </h4>
