@@ -1,12 +1,12 @@
 <div class="flex flex-col items-center justify-center">
   <div
     id="pokemon-list"
-    *ngIf="pokemonSelected && pokemonSelected.length > 0"
+    *ngIf="pokemonList && pokemonList.length > 0"
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 py-20 xl:py-28 gap-8"
     role="list"
   >
     <div
-      *ngFor="let pokemon of pokemonSelected"
+      *ngFor="let pokemon of pokemonList"
       class="w-full flex flex-col items-center p-4 rounded-xl bg-white border-[12px] border-gray-300"
       appBorderCard
       (click)="selectPokemon(pokemon)"
@@ -41,7 +41,7 @@
   </div>
 
   <p
-    *ngIf="!pokemonSelected || pokemonSelected.length === 0"
+    *ngIf="!pokemonList || pokemonList.length === 0"
     class="text-base text-gray-400"
   >
     No pokemon selected

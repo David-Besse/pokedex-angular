@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { POKEMONS } from '../mock.pokemon-list';
 import { Pokemon } from '../pokemon';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
+import { PokemonService } from '../pokemon.service';
 
 @Component({
   selector: 'app-detail-pokemon',
   standalone: true,
-  imports: [ CommonModule, PokemonTypeColorPipe ],
+  imports: [CommonModule, PokemonTypeColorPipe],
   templateUrl: './detail-pokemon.component.html',
   styleUrl: './detail-pokemon.component.scss',
 })
 export class DetailPokemonComponent implements OnInit {
-
   pokemonList: Pokemon[];
-  pokemonSelected: Pokemon|undefined;
+  pokemonSelected: Pokemon | undefined;
 
-  constructor(private selectedRoute: ActivatedRoute, private router: Router) {}
+  constructor(
+    private selectedRoute: ActivatedRoute,
+    private router: Router,
+    private pokemonService: PokemonService
+  ) {}
 
   ngOnInit() {
-    this.pokemonList = POKEMONS;
-    
-    const pokemonId: string|null = this.selectedRoute.snapshot.paramMap.get('id');
-    
+    const pokemonId: string | null =
+      this.selectedRoute.snapshot.paramMap.get('id');
+
     if (pokemonId) {
-      console.log(pokemonId);
-      this.pokemonSelected = this.pokemonList.find(pokemon => pokemon.id === +pokemonId);
+      this.pokemonSelected = this.pokemonService.getPokemonById(+pokemonId);
     }
   }
 
