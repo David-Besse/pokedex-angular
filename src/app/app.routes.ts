@@ -6,16 +6,16 @@ import { EditPokemonComponent } from './pokemon/edit-pokemon/edit-pokemon.compon
 
 export const AppRoutes: Routes = [
   {
+    path: 'edit/pokemon/:id',
+    component: EditPokemonComponent,
+  },
+  {
     path: 'pokemons',
     component: ListPokemonComponent,
   },
   {
-    path: 'pokemons/:id',
+    path: 'pokemon/:id',
     component: DetailPokemonComponent,
-  },
-  {
-    path: 'edit/pokemon/:id',
-    component: EditPokemonComponent,
   },
   {
     path: '',

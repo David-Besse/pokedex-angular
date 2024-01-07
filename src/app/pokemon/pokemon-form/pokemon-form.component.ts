@@ -60,6 +60,7 @@ export class PokemonFormComponent implements OnInit {
     //     .updatePokemon(this.pokemon)
     //     .subscribe(() => this.router.navigate(['/pokemon', this.pokemon.id]));
     // }
+    this.router.navigate(['/pokemon', this.pokemon.id]);
   }
 
   isTypesValid(type: string): boolean {
