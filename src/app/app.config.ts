@@ -1,11 +1,22 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { AppRoutes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { PokemonService } from './pokemon/pokemon.service';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(AppRoutes), provideClientHydration(), PokemonService, FormsModule],
+  providers: [
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    importProvidersFrom(BrowserModule, FormsModule),
+    provideRouter(AppRoutes),
+    provideClientHydration(),
+  ],
 };

@@ -1,34 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf, NgFor, NgStyle, DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pokemon } from '../pokemon';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { PokemonService } from '../pokemon.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-pokemon',
   standalone: true,
-  imports: [CommonModule, PokemonTypeColorPipe],
+  imports: [NgIf, NgFor, NgStyle, DatePipe, PokemonTypeColorPipe],
   templateUrl: './detail-pokemon.component.html',
   styleUrl: './detail-pokemon.component.scss',
 })
-export class DetailPokemonComponent implements OnInit {
+export default class DetailPokemonComponent implements OnInit {
   pokemonList: Pokemon[];
-  pokemonSelected: Pokemon | undefined;
+  pokemonSelected: Pokemon;
 
   constructor(
-    private selectedRoute: ActivatedRoute,
+    private currentRoute: ActivatedRoute,
     private router: Router,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
     const pokemonId: string | null =
-      this.selectedRoute.snapshot.paramMap.get('id');
+      this.currentRoute.snapshot.paramMap.get('id');
+    10;
 
     if (pokemonId) {
-      this.pokemonSelected = this.pokemonService.getPokemonById(+pokemonId);
+      this.pokemonService.getPokemonById(+pokemonId).subscribe((pokemon) => {
+        if (pokemon) {
+          this.pokemonSelected = pokemon;
+          console.log(this.pokemonSelected);
+          this.initTitle(pokemon);
+        }
+      });
     }
+  }
+
+  initTitle(pokemon: Pokemon | undefined) {
+    if (!pokemon) {
+      this.titleService.setTitle('Pokemon not found');
+      return;
+    }
+
+    this.titleService.setTitle(pokemon.name);
   }
 
   goBack() {

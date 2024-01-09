@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf, NgFor, NgStyle } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { BorderCardDirective } from '../border-card.directive';
 import { PokemonService } from '../pokemon.service';
@@ -11,7 +11,9 @@ import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
   selector: 'app-pokemon-form',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
+    NgFor,
+    NgStyle,
     BorderCardDirective,
     FormsModule,
     PokemonTypeColorPipe,
@@ -21,7 +23,7 @@ import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 })
 export class PokemonFormComponent implements OnInit {
   @Input() pokemon: Pokemon;
-  types: string[] = [];
+  types: string[];
   isAddForm: boolean;
 
   constructor(private router: Router, private pokemonService: PokemonService) {}
@@ -36,7 +38,7 @@ export class PokemonFormComponent implements OnInit {
   }
 
   selectType($event: Event, type: string) {
-    const isChecked = ($event.target as HTMLInputElement).checked;
+    const isChecked: boolean = ($event.target as HTMLInputElement).checked;
 
     if (isChecked) {
       this.pokemon.types.push(type);
@@ -46,6 +48,16 @@ export class PokemonFormComponent implements OnInit {
         this.pokemon.types.splice(index, 1);
       }
     }
+  }
+
+  isTypesValid(type: string): boolean {
+    if (this.pokemon.types.length === 1 && this.hasType(type)) {
+      return false;
+    }
+    if (this.pokemon.types.length === 3 && !this.hasType(type)) {
+      return false;
+    }
+    return true;
   }
 
   onSubmit() {
@@ -61,15 +73,5 @@ export class PokemonFormComponent implements OnInit {
     //     .subscribe(() => this.router.navigate(['/pokemon', this.pokemon.id]));
     // }
     this.router.navigate(['/pokemon', this.pokemon.id]);
-  }
-
-  isTypesValid(type: string): boolean {
-    if (this.pokemon.types.length === 1 && this.hasType(type)) {
-      return false;
-    }
-    if (this.pokemon.types.length === 3 && !this.hasType(type)) {
-      return false;
-    }
-    return true;
   }
 }

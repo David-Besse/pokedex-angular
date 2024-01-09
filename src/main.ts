@@ -1,11 +1,12 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-// The bootstrapApplication function is responsible for starting the Angular application.
-
-import { appConfig } from './app/app.config';
-// The appConfig object contains configuration settings for the application.
-
+// import { environment } from './environments/environment';
+// import { enableProdMode } from '@angular/core';
 import { AppComponent } from './app/app.component';
-// The AppComponent class is the root component of the application. It is the component that is rendered when the application starts.
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+
+// if (environment.production) {
+//   enableProdMode();
+// }
+
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));

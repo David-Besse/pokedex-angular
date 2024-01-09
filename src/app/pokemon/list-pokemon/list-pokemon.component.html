@@ -9,8 +9,8 @@
       *ngFor="let pokemon of pokemonList"
       class="w-full flex flex-col items-center p-4 rounded-xl bg-white border-[12px] border-gray-300"
       appBorderCard
-      (click)="selectPokemon(pokemon)"
-      (keydown.enter)="selectPokemon(pokemon)"
+      (click)="goToPokemon(pokemon)"
+      (keydown.enter)="goToPokemon(pokemon)"
       role="listitem"
     >
       <div class="w-full flex flex-row justify-between items-center mb-2">

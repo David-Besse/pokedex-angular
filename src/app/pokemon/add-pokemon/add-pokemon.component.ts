@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './add-pokemon.component.html',
   styleUrl: './add-pokemon.component.scss',
 })
-export class AddPokemonComponent implements OnInit {
+export default class AddPokemonComponent implements OnInit {
   constructor() {}
 
   ngOnInit(){
