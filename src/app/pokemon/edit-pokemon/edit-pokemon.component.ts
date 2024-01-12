@@ -23,10 +23,10 @@ export default class EditPokemonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const pokemonId: string | null = this.route.snapshot.paramMap.get('id');
+    const pokemonName: string | null = this.route.snapshot.paramMap.get('name');
 
-    if (pokemonId) {
-      this.pokemonService.getPokemonById(pokemonId).subscribe((pokemon) => {
+    if (pokemonName) {
+      this.pokemonService.getPokemonByName(pokemonName).subscribe((pokemon) => {
         if (pokemon) {
           this.pokemon = pokemon[0];
           this.initTitle(pokemon[0]);
@@ -37,7 +37,7 @@ export default class EditPokemonComponent implements OnInit {
     }
   }
 
-  initTitle(pokemon: Pokemon | undefined) {
+  private initTitle(pokemon: Pokemon | undefined) {
     if (!pokemon) {
       this.titleService.setTitle('Pokemon not found');
       return;

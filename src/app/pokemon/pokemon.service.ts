@@ -36,15 +36,15 @@ export class PokemonService {
     );
   }
 
-  getPokemonById(pokemonId: string): Observable<Pokemon[] | undefined> {
-    return this.http.get<Pokemon[]>(`${this.uri}?id=${pokemonId}`).pipe(
+  getPokemonById(pokemonId: number): Observable<Pokemon | undefined> {
+    return this.http.get<Pokemon>(`${this.uri}/${pokemonId}`).pipe(
       tap(() => this.log(`fetched hero id=${pokemonId}`)),
       catchError(this.handleError('GET a pokemon by id', undefined))
     );
   }
 
-  getPokemonByName(pokemonName: string): Observable<Pokemon | undefined> {
-    return this.http.get<Pokemon>(`${this.uri}?name=${pokemonName}`).pipe(
+  getPokemonByName(pokemonName: string): Observable<Pokemon[] | undefined> {
+    return this.http.get<Pokemon[]>(`${this.uri}?name=${pokemonName}`).pipe(
       tap(() => this.log(`fetched hero name=${pokemonName}`)),
       catchError(this.handleError('GET a pokemon by name', undefined))
     );
@@ -59,9 +59,8 @@ export class PokemonService {
   }
 
   updatePokemon(pokemon: Pokemon): Observable<Pokemon | undefined> {
-    console.log('Avant update:', pokemon);
     return this.http
-      .put<Pokemon>(this.uri, pokemon, this.httpOptions)
+      .put<Pokemon>(`${this.uri}/${pokemon.id}`, pokemon, this.httpOptions)
       .pipe(
         tap(() => this.log(`updated hero id=${pokemon.id}`)),
         catchError(this.handleError('UPDATE a pokemon', undefined))
@@ -70,7 +69,7 @@ export class PokemonService {
 
   addPokemon(pokemon: Pokemon): Observable<Pokemon> {
     return this.http
-      .post<Pokemon>(`${this.uri}`, { pokemon }, this.httpOptions)
+      .post<Pokemon>(this.uri, pokemon, this.httpOptions)
       .pipe(
         tap((newPokemon: Pokemon) =>
           this.log(`added hero w/ id=${newPokemon.id}`)

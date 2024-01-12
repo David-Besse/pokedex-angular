@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonFormComponent } from '../pokemon-form/pokemon-form.component';
 import { CommonModule } from '@angular/common';
+import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-add-pokemon',
@@ -10,9 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-pokemon.component.scss',
 })
 export default class AddPokemonComponent implements OnInit {
-  constructor() {}
+  pokemon: Pokemon;
 
-  ngOnInit(){
-    console.log('add pokemon');
+  ngOnInit() {
+    this.pokemon = new Pokemon();
   }
 }

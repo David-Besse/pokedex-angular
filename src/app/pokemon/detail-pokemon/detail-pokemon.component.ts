@@ -25,10 +25,11 @@ export default class DetailPokemonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const pokemonId = this.currentRoute.snapshot.paramMap.get('id');
+    const pokemonName: string | null = this.currentRoute.snapshot.paramMap.get('name');
 
-    if (pokemonId) {
-      this.pokemonService.getPokemonById(pokemonId).subscribe((pokemon) => {
+
+    if (pokemonName) {
+      this.pokemonService.getPokemonByName(pokemonName).subscribe((pokemon) => {
         if (pokemon) {
           this.pokemonSelected = pokemon[0];
           this.initTitle(pokemon[0]);
@@ -37,12 +38,11 @@ export default class DetailPokemonComponent implements OnInit {
     }
   }
 
-  initTitle(pokemon: Pokemon | undefined) {
+  private initTitle(pokemon: Pokemon | undefined) {
     if (!pokemon) {
       this.titleService.setTitle('Pokemon not found');
       return;
     }
-
     this.titleService.setTitle(pokemon.name);
   }
 
@@ -51,12 +51,12 @@ export default class DetailPokemonComponent implements OnInit {
   }
 
   goEdit(pokemon: Pokemon) {
-    this.router.navigate([`/pokemons/${pokemon.id}/edit/`]);
+    this.router.navigate([`/pokemons/edit/${pokemon.name}`]);
   }
 
-  goDelete(pokemonId: number) {
+  goDelete(pokemon: Pokemon) {
     this.pokemonService
-      .deletePokemon(pokemonId)
+      .deletePokemon(pokemon.id)
       .subscribe(() => this.router.navigate(['/pokemons']));
   }
 }
