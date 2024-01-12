@@ -61,17 +61,18 @@ export class PokemonFormComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.isAddForm) {
-    //   this.pokemonService
-    //     .addPokemon(this.pokemon)
-    //     .subscribe((pokemon: Pokemon) =>
-    //       this.router.navigate(['/pokemon', pokemon.id])
-    //     );
-    // } else {
-    //   this.pokemonService
-    //     .updatePokemon(this.pokemon)
-    //     .subscribe(() => this.router.navigate(['/pokemon', this.pokemon.id]));
-    // }
-    this.router.navigate(['/pokemon', this.pokemon.id]);
+    if (this.isAddForm) {
+      this.pokemonService
+        .addPokemon(this.pokemon)
+        .subscribe((pokemon) =>
+          this.router.navigate([`/pokemons/${pokemon.id}`])
+        );
+    } else {
+      this.pokemonService.updatePokemon(this.pokemon).subscribe((pokemon) => {
+        if (pokemon) {
+          this.router.navigate([`/pokemons/${pokemon.id}`]);
+        }
+      });
+    }
   }
 }

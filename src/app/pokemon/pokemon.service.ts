@@ -8,8 +8,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class PokemonService {
-
-  urlApi = 'http://localhost:3000/pokemons';
+  uri: string = 'http://localhost:3000/apipokemons';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -21,29 +20,31 @@ export class PokemonService {
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
+    return (error: Pokemon | undefined | []): Observable<T> => {
+      if (error) {
+        console.error(error);
+        this.log(`${operation} failed: ${error}`);
+      }
       return of(result as T);
     };
   }
 
   getPokemonList(): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.urlApi).pipe(
+    return this.http.get<Pokemon[]>(this.uri).pipe(
       tap(() => this.log('fetched pokemons')),
       catchError(this.handleError('GET pokemons', []))
     );
   }
 
-  getPokemonById(pokemonId: number): Observable<Pokemon | undefined> {
-    return this.http.get<Pokemon>(`${this.urlApi}?id=${pokemonId}`).pipe(
+  getPokemonById(pokemonId: string): Observable<Pokemon[] | undefined> {
+    return this.http.get<Pokemon[]>(`${this.uri}?id=${pokemonId}`).pipe(
       tap(() => this.log(`fetched hero id=${pokemonId}`)),
       catchError(this.handleError('GET a pokemon by id', undefined))
     );
   }
 
   getPokemonByName(pokemonName: string): Observable<Pokemon | undefined> {
-    return this.http.get<Pokemon>(`${this.urlApi}?name=${pokemonName}`).pipe(
+    return this.http.get<Pokemon>(`${this.uri}?name=${pokemonName}`).pipe(
       tap(() => this.log(`fetched hero name=${pokemonName}`)),
       catchError(this.handleError('GET a pokemon by name', undefined))
     );
@@ -57,18 +58,19 @@ export class PokemonService {
     return [...new Set(types)];
   }
 
-  updatePokemon(pokemon: Pokemon): Observable<Pokemon> {
+  updatePokemon(pokemon: Pokemon): Observable<Pokemon | undefined> {
+    console.log('Avant update:', pokemon);
     return this.http
-      .put<Pokemon>(`${this.urlApi}/${pokemon.id}`, pokemon, this.httpOptions)
+      .put<Pokemon>(this.uri, pokemon, this.httpOptions)
       .pipe(
         tap(() => this.log(`updated hero id=${pokemon.id}`)),
-        catchError(this.handleError<any>('UPDATE a pokemon', pokemon))
+        catchError(this.handleError('UPDATE a pokemon', undefined))
       );
   }
 
   addPokemon(pokemon: Pokemon): Observable<Pokemon> {
     return this.http
-      .post<Pokemon>(`${this.urlApi}`, pokemon, this.httpOptions)
+      .post<Pokemon>(`${this.uri}`, { pokemon }, this.httpOptions)
       .pipe(
         tap((newPokemon: Pokemon) =>
           this.log(`added hero w/ id=${newPokemon.id}`)
@@ -77,12 +79,12 @@ export class PokemonService {
       );
   }
 
-  deletePokemon(pokemon: Pokemon): Observable<Pokemon> {
+  deletePokemon(pokemonId: number): Observable<null> {
     return this.http
-      .delete<Pokemon>(`${this.urlApi}/${pokemon}`, this.httpOptions)
+      .delete<null>(`${this.uri}/${pokemonId}`, this.httpOptions)
       .pipe(
-        tap(() => this.log(`deleted hero id=${pokemon.id}`)),
-        catchError(this.handleError('DELETE a pokemon', pokemon))
+        tap(() => this.log(`deleted hero id=${pokemonId}`)),
+        catchError(this.handleError('DELETE a pokemon', null))
       );
   }
 }

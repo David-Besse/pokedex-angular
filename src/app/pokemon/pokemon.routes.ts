@@ -7,7 +7,7 @@ const pokemonRoutes: Routes = [
     providers: [PokemonService],
     children: [
       {
-        path: 'edit/pokemon/:id',
+        path: 'pokemons/:id/edit',
         loadComponent: () =>
           import('./edit-pokemon/edit-pokemon.component'),
         // The component will not be found if it is not defined as a default export.
@@ -15,7 +15,7 @@ const pokemonRoutes: Routes = [
         // import('./edit-pokemon/edit-pokemon.component').then((m) => m.EditPokemonComponent)
       },
       {
-        path: 'pokemon/add',
+        path: 'pokemons/add',
         title: 'Add a pokemon',
         loadComponent: () =>
           import('./add-pokemon/add-pokemon.component'),
@@ -27,7 +27,7 @@ const pokemonRoutes: Routes = [
           import('./list-pokemon/list-pokemon.component'),
       },
       {
-        path: 'pokemon/:id',
+        path: 'pokemons/:id',
         loadComponent: () =>
           import('./detail-pokemon/detail-pokemon.component'),
       },
