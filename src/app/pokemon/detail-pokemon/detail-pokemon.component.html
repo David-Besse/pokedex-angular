@@ -38,7 +38,7 @@
               <td class="pb-2">
                 <span
                   *ngFor="let type of pokemonSelected.types"
-                  class="mr-1 px-2 py-1 rounded-full text-white"
+                  class="mr-1 px-2 py-1 rounded-full text-[#000] text-sm font-medium"
                   [ngStyle]="{ 'background-color': type | pokemonTypeColor }"
                   >{{ type }}
                 </span>

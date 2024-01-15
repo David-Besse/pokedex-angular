@@ -1,19 +1,19 @@
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center mt-10">
   <div
     id="pokemon-list"
     *ngIf="pokemonList && pokemonList.length > 0"
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4 py-20 xl:py-28 gap-8"
     role="list"
   >
-    <div
+    <a
       *ngFor="let pokemon of pokemonList"
-      class="w-full flex flex-col items-center p-4 rounded-xl bg-white border-[12px] border-gray-300"
+      class="w-full flex flex-col items-center p-2 rounded-xl bg-white border-[12px] border-gray-300 cursor-pointer"
       appBorderCard
       (click)="goToPokemon(pokemon)"
       (keydown.enter)="goToPokemon(pokemon)"
       role="listitem"
     >
-      <div class="w-full flex flex-row justify-between items-center mb-2">
+      <div class="w-full flex flex-row justify-between items-center">
         <p class="text-base font-bold">
           {{ pokemon?.name }}
         </p>
@@ -22,20 +22,20 @@
       <img
         src="{{ pokemon?.picture }}"
         alt="url pokemon image"
-        class="border border-gray-400 w-[250px] h-[200px] sm:w-[200px] sm:h-[150px] rounded object-contain mb-2"
+        class="border border-gray-400 w-[250px] h-[200px] sm:w-[200px] sm:h-[150px] rounded object-contain"
       />
-      <div class="self-start p-2 text-base">
+      <div class="w-full self-start p-2 text-base">
         <span
           *ngFor="let type of pokemon?.types"
-          class="mr-1 px-2 py-1 rounded-full text-white"
+          class="mr-1 px-2 py-1 rounded-full text-[#000] text-sm font-semibold"
           [ngStyle]="{ 'background-color': type | pokemonTypeColor }"
           >{{ type }}</span
         >
-        <p class="mt-2">
+        <p class="mt-4 text-[12px] text-gray-500 italic text-end">
           Created: {{ pokemon?.created | date : "dd/MM/yyyy" }}
         </p>
       </div>
-    </div>
+    </a>
   </div>
 
   <p
@@ -47,12 +47,14 @@
 </div>
 
 <a
-  class="fixed bottom-4 right-4 rounded-full animate-bounce z-10"
+  class="add_icon fixed bottom-8 right-8 rounded-full z-10"
   routerLink="/pokemons/add"
 >
   <img
-    src="../../../assets/pokeball_nobg.png"
+    src="../../../assets/pokeball_nobg_c.png"
     alt="Add a pokemon"
-    class="rounded-full"
+    class="rounded-full bg-white animate-bounce"
   />
+  <p class="add_icon_text w-20 absolute -top-16 left-1/2 transform -translate-x-1/2 text-black bg-white border rounded-lg text-center text-sm hidden p-1">Add a pokemon</p>
+  <p class="absolute -top-7 -right-4 text-black text-center text-5xl font-semibold lg:hidden">+</p>
 </a>

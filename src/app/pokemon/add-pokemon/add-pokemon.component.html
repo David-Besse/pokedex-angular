@@ -2,5 +2,5 @@
   Ajouter un pokémon
 </h2>
 <div class="flex flex-col sm:flex-row justify-center items-center my-10">
-  <app-pokemon-form></app-pokemon-form>
+  <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-form>
 </div>

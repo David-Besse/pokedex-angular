@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgIf, NgFor, NgStyle, DatePipe } from '@angular/common';
 import { Pokemon } from '../pokemon';
 import { PokemonService } from '../pokemon.service';
@@ -16,6 +16,7 @@ import { BorderCardDirective } from '../border-card.directive';
     DatePipe,
     PokemonTypeColorPipe,
     BorderCardDirective,
+    RouterLink,
   ],
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.scss',
