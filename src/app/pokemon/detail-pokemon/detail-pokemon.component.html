@@ -3,9 +3,7 @@
   class="w-screen flex flex-col items-center justify-center py-20"
 >
   <div class="w-[90%] flex flex-col items-center">
-    <h2
-      class="self-start text-3xl lg:text-4xl font-bold text-gray-800 mb-10"
-    >
+    <h2 class="self-start text-3xl lg:text-4xl font-bold text-gray-800 mb-10">
       {{ pokemonSelected.name }}
       <span class="text-gray-500">#{{ pokemonSelected.id }}</span>
     </h2>
@@ -54,14 +52,35 @@
         </table>
       </div>
     </div>
-    <div class="flex">
-      <button class="mr-4" (click)="goBack()" (keyup.enter)="goBack()">Retour</button>
-      <button class="mr-4" (click)="goEdit(pokemonSelected)">Éditer</button>
-      <button class="mr-4" (click)="goDelete(pokemonSelected)">Supprimer</button>
+    <div class="flex flex-wrap gap-2 justify-center items-center">
+      <button
+        class="w-[112px] mr-4 bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl"
+        (click)="goBack()"
+        (keyup.enter)="goBack()"
+      >
+        Back
+      </button>
+      <button
+        class="w-[112px] mr-4 bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl"
+        (click)="goEdit(pokemonSelected)"
+        (keyup.enter)="goEdit(pokemonSelected)"
+      >
+        Edit
+      </button>
+      <button
+        class="w-[112px] mr-4 bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl"
+        (click)="goDelete(pokemonSelected)"
+        (keyup.enter)="goDelete(pokemonSelected)"
+      >
+        Delete
+      </button>
     </div>
   </div>
 </div>
-<h4 *ngIf="!pokemonSelected" class="text-center top-1/2 text-2xl lg:text-4xl mt-32">
+<h4
+  *ngIf="!pokemonSelected"
+  class="text-center top-1/2 text-2xl lg:text-4xl mt-32"
+>
   <!-- <app-loader></app-loader> -->
   aucun pokemon sélectionné
 </h4>

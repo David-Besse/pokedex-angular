@@ -25,8 +25,8 @@ export default class DetailPokemonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const pokemonName: string | null = this.currentRoute.snapshot.paramMap.get('name');
-
+    const pokemonName: string | null =
+      this.currentRoute.snapshot.paramMap.get('name');
 
     if (pokemonName) {
       this.pokemonService.getPokemonByName(pokemonName).subscribe((pokemon) => {
@@ -47,7 +47,7 @@ export default class DetailPokemonComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/pokemons']);
+    this.router.navigate(['/pokemons/']);
   }
 
   goEdit(pokemon: Pokemon) {
