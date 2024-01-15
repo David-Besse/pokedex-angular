@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
 import { POKEMONS } from './mock.pokemon-list';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,21 +32,21 @@ export class PokemonService {
   getPokemonList(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>(this.uri).pipe(
       tap(() => this.log('fetched pokemons')),
-      catchError(this.handleError('GET pokemons', []))
+      catchError(this.handleError('GET pokemons list failed', []))
     );
   }
 
   getPokemonById(pokemonId: number): Observable<Pokemon | undefined> {
     return this.http.get<Pokemon>(`${this.uri}/${pokemonId}`).pipe(
-      tap(() => this.log(`fetched hero id=${pokemonId}`)),
-      catchError(this.handleError('GET a pokemon by id', undefined))
+      tap(() => this.log(`fetched pokemon id=${pokemonId}`)),
+      catchError(this.handleError('GET a pokemon by id failed', undefined))
     );
   }
 
   getPokemonByName(pokemonName: string): Observable<Pokemon[] | undefined> {
     return this.http.get<Pokemon[]>(`${this.uri}?name=${pokemonName}`).pipe(
-      tap(() => this.log(`fetched hero name=${pokemonName}`)),
-      catchError(this.handleError('GET a pokemon by name', undefined))
+      tap(() => this.log(`fetched pokemon name=${pokemonName}`)),
+      catchError(this.handleError('GET a pokemon by name failed', undefined))
     );
   }
 
@@ -63,27 +63,46 @@ export class PokemonService {
       .put<Pokemon>(`${this.uri}/${pokemon.id}`, pokemon, this.httpOptions)
       .pipe(
         tap(() => this.log(`updated hero id=${pokemon.id}`)),
-        catchError(this.handleError('UPDATE a pokemon', undefined))
+        catchError(this.handleError('UPDATE a pokemon failed', undefined))
       );
   }
 
   addPokemon(pokemon: Pokemon): Observable<Pokemon> {
-    return this.http
-      .post<Pokemon>(this.uri, pokemon, this.httpOptions)
-      .pipe(
-        tap((newPokemon: Pokemon) =>
-          this.log(`added hero w/ id=${newPokemon.id}`)
-        ),
-        catchError(this.handleError('ADD a pokemon', pokemon))
-      );
+    return this.http.post<Pokemon>(this.uri, pokemon, this.httpOptions).pipe(
+      tap((newPokemon: Pokemon) =>
+        this.log(`added hero w/ id=${newPokemon.id}`)
+      ),
+      catchError(this.handleError('ADD a pokemon failed', pokemon))
+    );
   }
 
   deletePokemon(pokemonId: number): Observable<null> {
     return this.http
       .delete<null>(`${this.uri}/${pokemonId}`, this.httpOptions)
       .pipe(
-        tap(() => this.log(`deleted hero id=${pokemonId}`)),
-        catchError(this.handleError('DELETE a pokemon', null))
+        tap(() => this.log(`deleted pokemon id=${pokemonId}`)),
+        catchError(this.handleError('DELETE a pokemon failed', null))
       );
+  }
+
+  searchPokemonByName(term: string): Observable<Pokemon[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    
+    const termTrimmed = term.trim();
+
+    const searchList = this.http.get<Pokemon[]>(`${this.uri}`).pipe(
+      tap(() => this.log(`found pokemons matching "${term}"`)),
+      catchError(this.handleError('search pokemons failed', []))
+    );
+
+    return searchList.pipe(
+      map((pokemons) => {
+        return pokemons.filter((pokemon) =>
+          pokemon.name.toLowerCase().includes(termTrimmed.toLowerCase())
+        );
+      })
+    );
   }
 }

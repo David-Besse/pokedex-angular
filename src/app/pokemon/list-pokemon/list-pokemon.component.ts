@@ -5,6 +5,7 @@ import { Pokemon } from '../pokemon';
 import { PokemonService } from '../pokemon.service';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { BorderCardDirective } from '../border-card.directive';
+import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.component';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -17,6 +18,7 @@ import { BorderCardDirective } from '../border-card.directive';
     PokemonTypeColorPipe,
     BorderCardDirective,
     RouterLink,
+    SearchPokemonComponent,
   ],
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.scss',

@@ -1,0 +1,34 @@
+<form class="relative flex flex-col items-center" #searchForm="ngForm">
+  <input
+    class="w-[200px] px-4 py-2 rounded-ss-2xl rounded-se-2xl focus:outline-none border-y-4 border-[#3163b2] rounded-2xl"
+    type="text"
+    placeholder="search a pokemon ..."
+    pattern="^[a-zA-Z]+( [a-zA-Z]+){0,29}$"
+    (keyup)="search(searchInput.value)"
+    name="searchInput"
+    [(ngModel)]="defaultInput"
+    #searchInput="ngModel"
+  />
+  <div [hidden]="searchInput.valid" class="text-red-600 text-sm">
+    search must have between 1 and 30 letters and can have spaces. Special
+    characters and numbers are not allowed.
+  </div>
+
+  <div *ngIf="(pokemons$ | async) !== null && searchInput.value !== '' ">
+    <ul
+      *ngIf="searchInput.valid"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-2 overflow-auto bg-[whitesmoke] p-2 rounded-xl border mt-4"
+    >
+      <li *ngFor="let pokemon of pokemons$ | async" class="overflow-y-hidden">
+        <a
+          (click)="goToDetail(pokemon)"
+          (keydown.enter)="goToDetail(pokemon)"
+          class="text-base font-medium hover:underline cursor-pointer text-black"
+          tabindex="0"
+        >
+          {{ pokemon.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</form>

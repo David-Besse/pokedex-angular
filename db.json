@@ -181,6 +181,18 @@
         "Acier"
       ],
       "created": "2022-01-01T12:00:00Z"
+    },
+    {
+      "id": "f96e",
+      "name": "SuperTatou",
+      "hp": 500,
+      "cp": 53,
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/362.png",
+      "types": [
+        "Dragon",
+        "Glace"
+      ],
+      "created": "2024-01-15T22:18:43.277Z"
     }
   ]
 }
