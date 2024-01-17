@@ -15,7 +15,7 @@
     {
       "id": "2",
       "name": "Salamèche",
-      "hp": 28,
+      "hp": 30,
       "cp": "6",
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png",
       "types": [
@@ -37,7 +37,7 @@
     {
       "id": "4",
       "name": "Aspicot",
-      "hp": "16",
+      "hp": 18,
       "cp": "2",
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png",
       "types": [
@@ -181,18 +181,6 @@
         "Acier"
       ],
       "created": "2022-01-01T12:00:00Z"
-    },
-    {
-      "id": "f96e",
-      "name": "SuperTatou",
-      "hp": 500,
-      "cp": 53,
-      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/362.png",
-      "types": [
-        "Dragon",
-        "Glace"
-      ],
-      "created": "2024-01-15T22:18:43.277Z"
     }
   ]
 }

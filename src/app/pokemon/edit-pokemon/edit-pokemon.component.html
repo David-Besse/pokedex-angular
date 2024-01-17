@@ -1,11 +1,22 @@
-<h2 class="text-4xl font-bold mt-20 lg:mt-28 text-center px-6">Editer le pokémon {{ pokemon?.name }}</h2>
-<div class="flex flex-col sm:flex-row justify-center items-center my-10">
-  <p *ngIf="pokemon" class="my-10 shadow-2xl p-5 rounded-full bg-white sm:mr-2 lg:mr-10">
-    <img
-      [src]="pokemon.picture"
-      alt="url pokemon image"
-      class="w-[250px] h-[250px] rounded object-cover mx-auto"
-    />
-  </p>
-  <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-form>
+<!-- Loader -->
+<div
+  *ngIf="!pokemon"
+  class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center"
+>
+  <app-loader class=""></app-loader>
+</div>
+<div *ngIf="pokemon">
+  <h2 class="text-4xl font-bold mt-20 lg:mt-28 text-center px-6">
+    Editer le pokémon {{ pokemon.name }}
+  </h2>
+  <div class="flex flex-col sm:flex-row justify-center items-center my-10">
+    <p class="my-10 shadow-2xl p-5 rounded-full bg-white sm:mr-2 lg:mr-10">
+      <img
+        [src]="pokemon.picture"
+        alt="url pokemon image"
+        class="w-[250px] h-[250px] rounded object-cover mx-auto"
+      />
+    </p>
+    <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-form>
+  </div>
 </div>

@@ -5,13 +5,13 @@ import { Pokemon } from '../pokemon';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { PokemonService } from '../pokemon.service';
 import { Title } from '@angular/platform-browser';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-detail-pokemon',
   standalone: true,
-  imports: [NgIf, NgFor, NgStyle, DatePipe, PokemonTypeColorPipe],
+  imports: [NgIf, NgFor, NgStyle, DatePipe, PokemonTypeColorPipe, LoaderComponent],
   templateUrl: './detail-pokemon.component.html',
-  styleUrl: './detail-pokemon.component.scss',
 })
 export default class DetailPokemonComponent implements OnInit {
   pokemonList: Pokemon[];

@@ -8,7 +8,6 @@ import { Pokemon } from '../pokemon';
   standalone: true,
   imports: [PokemonFormComponent, CommonModule],
   templateUrl: './add-pokemon.component.html',
-  styleUrl: './add-pokemon.component.scss',
 })
 export default class AddPokemonComponent implements OnInit {
   pokemon: Pokemon;

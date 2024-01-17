@@ -18,7 +18,6 @@ import { PokemonService } from '../pokemon.service';
   standalone: true,
   imports: [NgIf, NgFor, AsyncPipe, FormsModule],
   templateUrl: './search-pokemon.component.html',
-  styleUrl: './search-pokemon.component.scss',
 })
 export class SearchPokemonComponent implements OnInit {
   defaultInput: string;

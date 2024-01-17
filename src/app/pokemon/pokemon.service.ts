@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
 import { POKEMONS } from './mock.pokemon-list';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, delay, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,7 @@ export class PokemonService {
 
   getPokemonByName(pokemonName: string): Observable<Pokemon[] | undefined> {
     return this.http.get<Pokemon[]>(`${this.uri}?name=${pokemonName}`).pipe(
+      delay(500), // simulate server latency for educational purposes and to show loading component
       tap(() => this.log(`fetched pokemon name=${pokemonName}`)),
       catchError(this.handleError('GET a pokemon by name failed', undefined))
     );
@@ -89,7 +90,7 @@ export class PokemonService {
     if (!term.trim()) {
       return of([]);
     }
-    
+
     const termTrimmed = term.trim();
 
     const searchList = this.http.get<Pokemon[]>(`${this.uri}`).pipe(

@@ -1,8 +1,14 @@
-<div
-  *ngIf="pokemonSelected"
-  class="w-screen flex flex-col items-center justify-center py-20"
->
-  <div class="w-[90%] flex flex-col items-center">
+<div class="w-screen flex flex-col items-center justify-center py-20">
+  <!-- Loader -->
+  <div
+    *ngIf="!pokemonSelected"
+    class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center"
+  >
+    <app-loader class=""></app-loader>
+  </div>
+
+  <!-- Pokemon detail -->
+  <div *ngIf="pokemonSelected" class="w-[90%] flex flex-col items-center">
     <h2 class="self-start text-3xl lg:text-4xl font-bold text-gray-800 mb-10">
       {{ pokemonSelected.name }}
       <span class="text-gray-500">#{{ pokemonSelected.id }}</span>
@@ -77,10 +83,3 @@
     </div>
   </div>
 </div>
-<h4
-  *ngIf="!pokemonSelected"
-  class="text-center top-1/2 text-2xl lg:text-4xl mt-32"
->
-  <!-- <app-loader></app-loader> -->
-  aucun pokemon sélectionné
-</h4>

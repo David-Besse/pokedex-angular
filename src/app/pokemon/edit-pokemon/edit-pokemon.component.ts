@@ -5,13 +5,13 @@ import { PokemonService } from '../pokemon.service';
 import { PokemonFormComponent } from '../pokemon-form/pokemon-form.component';
 import { Pokemon } from '../pokemon';
 import { Title } from '@angular/platform-browser';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-edit-pokemon',
   standalone: true,
-  imports: [NgIf, PokemonFormComponent],
+  imports: [NgIf, PokemonFormComponent, LoaderComponent],
   templateUrl: './edit-pokemon.component.html',
-  styleUrl: './edit-pokemon.component.scss',
 })
 export default class EditPokemonComponent implements OnInit {
   pokemon: Pokemon | undefined;

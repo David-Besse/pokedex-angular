@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgIf, NgFor, NgStyle, DatePipe } from '@angular/common';
 import { Pokemon } from '../pokemon';
 import { PokemonService } from '../pokemon.service';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { BorderCardDirective } from '../border-card.directive';
 import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.component';
+import { LoaderComponent } from '../loader/loader.component';
+import { InformationBoxComponent } from '../../information-box/information-box.component';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -19,6 +21,8 @@ import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.compone
     BorderCardDirective,
     RouterLink,
     SearchPokemonComponent,
+    LoaderComponent,
+    InformationBoxComponent
   ],
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.scss',
@@ -26,7 +30,7 @@ import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.compone
 export default class ListPokemonComponent implements OnInit {
   pokemonList: Pokemon[] | [];
 
-  constructor(private router: Router, private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.pokemonService
@@ -34,9 +38,5 @@ export default class ListPokemonComponent implements OnInit {
       .subscribe((pokemonList: Pokemon[] | []) => {
         this.pokemonList = pokemonList;
       });
-  }
-
-  goToPokemon(pokemon: Pokemon) {
-    this.router.navigate([`/pokemons`, pokemon.name]);
   }
 }

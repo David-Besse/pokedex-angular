@@ -6,6 +6,7 @@ import { Pokemon } from '../pokemon';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -17,6 +18,7 @@ import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
     BorderCardDirective,
     FormsModule,
     PokemonTypeColorPipe,
+    LoaderComponent,
   ],
   templateUrl: './pokemon-form.component.html',
   styleUrl: './pokemon-form.component.scss',
@@ -76,7 +78,7 @@ export class PokemonFormComponent implements OnInit {
 
   goBack() {
     const currentUrl = this.router.url.includes('edit');
-    
+
     if (currentUrl) {
       this.router.navigate(['/pokemons/', this.pokemon.name]);
     } else {
