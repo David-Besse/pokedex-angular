@@ -28,7 +28,7 @@
       class="w-full flex flex-col items-center p-2 rounded-xl bg-white border-[12px] border-gray-300 cursor-pointer"
       appBorderCard
       role="listitem"
-      routerLink="/pokemons/{{ pokemon?.name }}"
+      [routerLink]="['/pokemons/{{ pokemon?.name }}']"
     >
       <div class="w-full flex flex-row justify-between items-center">
         <p class="text-base font-bold">
@@ -59,7 +59,7 @@
 <!-- Add icon -->
 <a
   class="add_icon fixed bottom-8 right-8 rounded-full z-10"
-  routerLink="/pokemons/add"
+  [routerLink]="['/pokemons/add']"
 >
   <img
     src="../../../assets/pokeball_nobg_c.png"
