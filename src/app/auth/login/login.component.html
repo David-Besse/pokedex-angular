@@ -1,0 +1,100 @@
+<div class="">
+  <app-information-box class="mt-24"></app-information-box>
+
+  <h2 class="text-4xl font-bold mt-20 lg:mt-28 text-center px-6">Login page</h2>
+
+  <div
+    class="w-[310px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-4 border-[#3163b2] rounded-xl"
+  >
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col justify-center items-center p-4"
+    >
+      <div class="form-group my-2 flex flex-col">
+        <label for="emailField" class="text-base font-bold mb-2"
+          >Email
+          <span class="text-gray-500 text-sm cursor-copy"
+            >[ admin&#64;pkm.com ]</span
+          ></label
+        >
+        <input
+          type="email"
+          id="emailField"
+          name="emailField"
+          required
+          placeholder="your email"
+          [(ngModel)]="email"
+          pattern="^[a-zA-Z0-9_.\-]+@[a-zA-Z0-9\-]+\.[a-z]{2,3}$"
+          #emailField="ngModel"
+          autocomplete="email"
+          class="form-control w-[250px] border rounded-lg border-gray-400 ml-4 px-2 py-1"
+          aria-labelledby="emailField"
+        />
+      </div>
+      <div
+        [hidden]="emailField.valid || emailField.pristine"
+        class="text-red-600 text-center"
+      >
+        Email is required and must be a valid email.
+      </div>
+      <div class="form-group my-2 flex flex-col">
+        <label for="passwordField" class="text-base font-bold mb-2">
+          Mot de passe
+          <span class="text-gray-500 text-sm cursor-copy"
+            >[ AdminPKM2024! ]</span
+          >
+        </label>
+        <input
+          type="password"
+          id="passwordField"
+          name="passwordField"
+          required
+          placeholder="your password"
+          [(ngModel)]="password"
+          pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\(\)_+])[A-Za-z\d!@#$%^&*\(\)_+]{8,}$"
+          #passwordField="ngModel"
+          autocomplete="current-password"
+          class="form-control w-[250px] border rounded-lg border-gray-400 ml-4 px-2 py-1"
+          aria-labelledby="passwordField"
+        />
+      </div>
+      <div
+        [hidden]="passwordField.valid || passwordField.pristine"
+        class="text-red-600 text-center"
+      >
+        Password is required and must contain at least one uppercase letter, one
+        number, one special character and be at least 8 characters long.
+      </div>
+      <button
+        *ngIf="toggleConnectionButton"
+        type="submit"
+        class="w-fit bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl disabled:bg-gray-300 disabled:opacity-70 disabled:pointer-events-none mt-4"
+      >
+        "Se déconnecter"
+      </button>
+      <button
+        *ngIf="!toggleConnectionButton"
+        type="submit"
+        [disabled]="!loginForm.valid"
+        class="w-fit bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl disabled:bg-gray-300 disabled:opacity-70 disabled:pointer-events-none mt-4"
+      >
+        Se connecter
+      </button>
+      <!-- <button
+                type="button"
+                class="btn btn-primary"
+                (click)="goToRegister()"
+            >
+                Creer un compte
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="goToForgotPassword()"
+            >
+                Mot de passe oublie ?
+            </button> -->
+    </form>
+  </div>
+</div>

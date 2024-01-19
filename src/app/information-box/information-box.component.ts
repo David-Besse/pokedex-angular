@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { BrowserStorageService } from '../browser-storage.service';
+import { InformationBoxService } from './service/information-box.service';
 
 @Component({
   selector: 'app-information-box',
@@ -10,19 +11,24 @@ import { BrowserStorageService } from '../browser-storage.service';
   styleUrl: './information-box.component.scss',
 })
 export class InformationBoxComponent implements OnInit {
-  isShown: string;
+  @Input() textToDisplay: string;
+  isBoxDisplayed: boolean;
 
-  constructor(private browerStorage: BrowserStorageService) {}
+  constructor(
+    private browerStorage: BrowserStorageService,
+    private informationBoxService: InformationBoxService
+  ) {}
 
   ngOnInit() {
-    this.isShown =
-      this.browerStorage.get('informationBox') === 'false' ? 'false' : 'true';
+    this.informationBoxService.getText().subscribe((text) => {
+      this.textToDisplay = text;
+    });
+    this.isBoxDisplayed = this.informationBoxService.toggleInformationBox;
   }
 
   close() {
-    const informationBox = document.getElementById('information-box');
-    informationBox?.remove();
     this.browerStorage.set('informationBox', 'false');
-    this.isShown = 'false';
+    this.isBoxDisplayed = false;
+    this.informationBoxService.setText('');
   }
 }

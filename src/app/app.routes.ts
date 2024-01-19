@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-// import { AuthGuard } from './auth.guard';
 
 export const AppRoutes: Routes = [
   {
@@ -9,9 +8,12 @@ export const AppRoutes: Routes = [
   },
   {
     path: '',
-    // canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./pokemon/pokemon.routes'),
+    loadChildren: () => import('./pokemon/pokemon.routes'),
+  },
+  {
+    path: 'login',
+    title: 'Login',
+    loadComponent: () => import('./auth/login/login.component'),
   },
   {
     path: '**',

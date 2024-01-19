@@ -7,6 +7,7 @@ import { PokemonTypeColorPipe } from '../pokemon-type-color.pipe';
 import { BorderCardDirective } from '../border-card.directive';
 import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.component';
 import { LoaderComponent } from '../loader/loader.component';
+import { InformationBoxService } from '../../information-box/service/information-box.service';
 import { InformationBoxComponent } from '../../information-box/information-box.component';
 
 @Component({
@@ -30,7 +31,10 @@ import { InformationBoxComponent } from '../../information-box/information-box.c
 export default class ListPokemonComponent implements OnInit {
   pokemonList: Pokemon[] | [];
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private informationBoxService: InformationBoxService
+  ) {}
 
   ngOnInit(): void {
     this.pokemonService
@@ -38,5 +42,11 @@ export default class ListPokemonComponent implements OnInit {
       .subscribe((pokemonList: Pokemon[] | []) => {
         this.pokemonList = pokemonList;
       });
+
+    this.informationBoxService.setText(
+      'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
+    );
+
+    this.informationBoxService.toggleInformationBox = true;
   }
 }
