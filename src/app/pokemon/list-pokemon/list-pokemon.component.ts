@@ -9,6 +9,7 @@ import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.compone
 import { LoaderComponent } from '../loader/loader.component';
 import { InformationBoxService } from '../../information-box/service/information-box.service';
 import { InformationBoxComponent } from '../../information-box/information-box.component';
+import { BrowserStorageService } from '../../browser-storage.service';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -23,7 +24,7 @@ import { InformationBoxComponent } from '../../information-box/information-box.c
     RouterLink,
     SearchPokemonComponent,
     LoaderComponent,
-    InformationBoxComponent
+    InformationBoxComponent,
   ],
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.scss',
@@ -33,7 +34,8 @@ export default class ListPokemonComponent implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
-    private informationBoxService: InformationBoxService
+    private informationBoxService: InformationBoxService,
+    private browserStorage: BrowserStorageService
   ) {}
 
   ngOnInit(): void {
@@ -43,10 +45,12 @@ export default class ListPokemonComponent implements OnInit {
         this.pokemonList = pokemonList;
       });
 
-    this.informationBoxService.setText(
-      'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
-    );
-
-    this.informationBoxService.toggleInformationBox = true;
+    const informationBox = this.browserStorage.get('informationBox_cookie');
+    if (!informationBox) {
+      this.informationBoxService.setText(
+        'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
+      );
+      this.informationBoxService.toggleInformationBox = true;
+    }
   }
 }

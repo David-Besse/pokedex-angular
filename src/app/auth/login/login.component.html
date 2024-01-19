@@ -1,3 +1,12 @@
+<div>
+  <div>
+    <p>Hello {{ email }} !</p>
+    <span class="cursor-pointer text-[#3163b2]" (onClick)="handleLogout()">
+      Disconnect
+    </span>
+  </div>
+</div>
+
 <div class="">
   <app-information-box class="mt-24"></app-information-box>
 
@@ -67,34 +76,12 @@
         number, one special character and be at least 8 characters long.
       </div>
       <button
-        *ngIf="toggleConnectionButton"
-        type="submit"
-        class="w-fit bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl disabled:bg-gray-300 disabled:opacity-70 disabled:pointer-events-none mt-4"
-      >
-        "Se déconnecter"
-      </button>
-      <button
-        *ngIf="!toggleConnectionButton"
         type="submit"
         [disabled]="!loginForm.valid"
         class="w-fit bg-[#ffcd08] hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl disabled:bg-gray-300 disabled:opacity-70 disabled:pointer-events-none mt-4"
       >
         Se connecter
       </button>
-      <!-- <button
-                type="button"
-                class="btn btn-primary"
-                (click)="goToRegister()"
-            >
-                Creer un compte
-            </button>
-            <button
-                type="button"
-                class="btn btn-primary"
-                (click)="goToForgotPassword()"
-            >
-                Mot de passe oublie ?
-            </button> -->
     </form>
   </div>
 </div>

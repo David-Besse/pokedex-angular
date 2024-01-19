@@ -1,5 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, delay, of} from 'rxjs';
+import { Observable, delay, map, of } from 'rxjs';
+
+interface User {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -7,17 +13,28 @@ import { Observable, delay, of} from 'rxjs';
 export class AuthService {
   isLogged: boolean = false;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<boolean> {
-    const isConnected: boolean =
-      email === 'admin@pkm.com' && password === 'AdminPKM2024!';
+  login(givenEmail: string, givenPassword: string): Observable<boolean> {
+    const currentUser: Observable<User[] | null> = this.http
+      .get<User[]>(`users?email=${givenEmail}`)
+      .pipe(
+        map((users: User[]) => {
+          if (users.length > 0) {
+            const foundUser: User = users[0];
+            if (foundUser.password === givenPassword) {
+              return [foundUser];
+            }
+          }
+          return null;
+        })
+      );
 
-    if (isConnected) {
-      this.isLogged = isConnected;
+    if (currentUser) {
+      this.isLogged = true;
     }
 
-    return of(isConnected).pipe(delay(1000));
+    return of(true).pipe(delay(1000));
   }
 
   logout(): void {

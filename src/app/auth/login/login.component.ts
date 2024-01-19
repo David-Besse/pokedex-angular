@@ -16,7 +16,6 @@ import { InformationBoxComponent } from '../../information-box/information-box.c
 export default class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
-  toggleConnectionButton: boolean = false;
   auth: AuthService;
 
   constructor(
@@ -30,22 +29,16 @@ export default class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.toggleConnectionButton) {
-      this.auth.login(this.email, this.password).subscribe((isLogged) => {
-        if (isLogged) {
-          this.handleSuccessfulLogin();
-        } else {
-          this.handleFailedLogin();
-        }
-      });
-    } else {
-      this.auth.logout();
-      this.handleLogout();
-    }
+    this.auth.login(this.email, this.password).subscribe((isLogged) => {
+      if (isLogged) {
+        this.handleSuccessfulLogin();
+      } else {
+        this.handleFailedLogin();
+      }
+    });
   }
 
   handleSuccessfulLogin() {
-    this.toggleConnectionButton = false;
     this.router.navigate(['/pokemons']);
   }
 
@@ -58,6 +51,7 @@ export default class LoginComponent implements OnInit {
   handleLogout() {
     this.email = '';
     this.password = '';
+    this.auth.isLogged = false;
     this.router.navigate(['/login']);
   }
 

@@ -15,7 +15,7 @@ export class InformationBoxComponent implements OnInit {
   isBoxDisplayed: boolean;
 
   constructor(
-    private browerStorage: BrowserStorageService,
+    private browserStorage: BrowserStorageService,
     private informationBoxService: InformationBoxService
   ) {}
 
@@ -27,7 +27,7 @@ export class InformationBoxComponent implements OnInit {
   }
 
   close() {
-    this.browerStorage.set('informationBox', 'false');
+    this.browserStorage.set('informationBox_cookie', 'false');
     this.isBoxDisplayed = false;
     this.informationBoxService.setText('');
   }

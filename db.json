@@ -182,5 +182,13 @@
       ],
       "created": "2022-01-01T12:00:00Z"
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@pkm.com",
+      "password": "AdminPKM2024!",
+      "admin": true
+    }
   ]
 }
