@@ -6,7 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class InformationBoxService {
   private textSubject = new BehaviorSubject<string>('');
-  toggleInformationBox: boolean;
 
   setText(text: string) {
     this.textSubject.next(text);

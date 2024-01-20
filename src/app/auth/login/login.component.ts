@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { InformationBoxService } from '../../information-box/service/information-box.service';
@@ -14,9 +14,11 @@ import { InformationBoxComponent } from '../../information-box/information-box.c
   styleUrl: './login.component.scss',
 })
 export default class LoginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
+  @Input() email: string = '';
+  @Input() password: string = '';
+ @ViewChild(InformationBoxComponent) informationBoxComponent!: InformationBoxComponent;
   auth: AuthService;
+  minimizedLoginBox: boolean;
 
   constructor(
     private authService: AuthService,
@@ -30,20 +32,18 @@ export default class LoginComponent implements OnInit {
 
   onSubmit() {
     this.auth.login(this.email, this.password).subscribe((isLogged) => {
-      if (isLogged) {
-        this.handleSuccessfulLogin();
-      } else {
-        this.handleFailedLogin();
-      }
+      isLogged ? this.handleSuccessfulLogin() : this.handleFailedLogin();
     });
   }
 
   handleSuccessfulLogin() {
+    this.minimizedLoginBox = true;
     this.router.navigate(['/pokemons']);
   }
 
   handleFailedLogin() {
-    this.displayInformationBox('Wrong credentials');
+    this.informationBoxService.setText('Wrong email or password');
+    this.informationBoxComponent.open();
     this.email = '';
     this.password = '';
   }
@@ -53,10 +53,5 @@ export default class LoginComponent implements OnInit {
     this.password = '';
     this.auth.isLogged = false;
     this.router.navigate(['/login']);
-  }
-
-  displayInformationBox(message: string) {
-    this.informationBoxService.setText(message);
-    this.informationBoxService.toggleInformationBox = true;
   }
 }

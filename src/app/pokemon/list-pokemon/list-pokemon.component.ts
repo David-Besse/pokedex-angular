@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIf, NgFor, NgStyle, DatePipe } from '@angular/common';
 import { Pokemon } from '../pokemon';
@@ -29,13 +35,17 @@ import { BrowserStorageService } from '../../browser-storage.service';
   templateUrl: './list-pokemon.component.html',
   styleUrl: './list-pokemon.component.scss',
 })
-export default class ListPokemonComponent implements OnInit {
+export default class ListPokemonComponent implements OnInit, AfterViewInit {
   pokemonList: Pokemon[] | [];
+  lsInformationBox: string | null;
+  @ViewChild(InformationBoxComponent)
+  informationBoxComponent!: InformationBoxComponent;
 
   constructor(
     private pokemonService: PokemonService,
     private informationBoxService: InformationBoxService,
-    private browserStorage: BrowserStorageService
+    private browserStorage: BrowserStorageService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +54,16 @@ export default class ListPokemonComponent implements OnInit {
       .subscribe((pokemonList: Pokemon[] | []) => {
         this.pokemonList = pokemonList;
       });
+    this.lsInformationBox = this.browserStorage.get('informationBox');
+  }
 
-    const informationBox = this.browserStorage.get('informationBox_cookie');
-    if (!informationBox) {
+  ngAfterViewInit() {
+    if (!this.lsInformationBox) {
       this.informationBoxService.setText(
         'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
       );
-      this.informationBoxService.toggleInformationBox = true;
     }
+    this.informationBoxComponent.open();
+    this.cd.detectChanges(); // To avoid ExpressionChangedAfterItHasBeenCheckedError
   }
 }

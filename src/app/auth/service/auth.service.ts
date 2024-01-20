@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, delay, map, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 interface User {
   email: string;
@@ -11,30 +11,25 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  isLogged: boolean = false;
+  isLogged: boolean;
+  currentUser: Observable<User[] | null>;
 
   constructor(private http: HttpClient) {}
 
   login(givenEmail: string, givenPassword: string): Observable<boolean> {
-    const currentUser: Observable<User[] | null> = this.http
-      .get<User[]>(`users?email=${givenEmail}`)
+    return this.http
+      .get<User[]>(`http://localhost:3000/users?email=${givenEmail}`)
       .pipe(
         map((users: User[]) => {
-          if (users.length > 0) {
-            const foundUser: User = users[0];
-            if (foundUser.password === givenPassword) {
-              return [foundUser];
-            }
-          }
-          return null;
+
+          const foundUser: User | undefined = users.find(
+            (user) => user.password === givenPassword
+          );
+
+          this.isLogged = foundUser ? true : false;
+          return this.isLogged;
         })
       );
-
-    if (currentUser) {
-      this.isLogged = true;
-    }
-
-    return of(true).pipe(delay(1000));
   }
 
   logout(): void {
