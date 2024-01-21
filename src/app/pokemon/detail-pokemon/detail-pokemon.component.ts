@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgIf, NgFor, NgStyle, DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pokemon } from '../pokemon';
@@ -10,10 +10,17 @@ import { LoaderComponent } from '../loader/loader.component';
 @Component({
   selector: 'app-detail-pokemon',
   standalone: true,
-  imports: [NgIf, NgFor, NgStyle, DatePipe, PokemonTypeColorPipe, LoaderComponent],
+  imports: [
+    NgIf,
+    NgFor,
+    NgStyle,
+    DatePipe,
+    PokemonTypeColorPipe,
+    LoaderComponent,
+  ],
   templateUrl: './detail-pokemon.component.html',
 })
-export default class DetailPokemonComponent implements OnInit {
+export default class DetailPokemonComponent implements OnInit, AfterViewInit {
   pokemonList: Pokemon[];
   pokemonSelected: Pokemon | undefined;
 
@@ -36,6 +43,13 @@ export default class DetailPokemonComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngAfterViewInit() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   private initTitle(pokemon: Pokemon | undefined) {
