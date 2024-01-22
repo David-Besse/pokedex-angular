@@ -1,29 +1,63 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 
-export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
-  providedIn: 'root',
-  factory: () => localStorage,
-});
+export const BROWSER_LOCALSTORAGE = new InjectionToken<Storage>(
+  'Browser localStorage',
+  {
+    providedIn: 'root',
+    factory: () => localStorage,
+  }
+);
+
+export const BROWSER_SESSIONSTORAGE = new InjectionToken<Storage>(
+  'Browser sessionStorage',
+  {
+    providedIn: 'root',
+    factory: () => sessionStorage,
+  }
+);
 
 @Injectable()
-export class BrowserStorageService {
+export class BrowserLocalStorageService {
   item: string | null;
 
-  constructor(@Inject(BROWSER_STORAGE) public storage: Storage) {}
+  constructor(@Inject(BROWSER_LOCALSTORAGE) public localStorage: Storage) {}
 
   get(key: string) {
-    return this.storage.getItem(key);
+    return this.localStorage.getItem(key);
   }
 
   set(key: string, value: string) {
-    this.storage.setItem(key, value);
+    this.localStorage.setItem(key, value);
   }
 
   remove(key: string) {
-    this.storage.removeItem(key);
+    this.localStorage.removeItem(key);
   }
 
   clear() {
-    this.storage.clear();
+    this.localStorage.clear();
+  }
+}
+
+@Injectable()
+export class BrowserSessionStorageService {
+  item: string | null;
+
+  constructor(@Inject(BROWSER_SESSIONSTORAGE) public sessionStorage: Storage) {}
+
+  get(key: string) {
+    return this.sessionStorage.getItem(key);
+  }
+
+  set(key: string, value: string) {
+    this.sessionStorage.setItem(key, value);
+  }
+
+  remove(key: string) {
+    this.sessionStorage.removeItem(key);
+  }
+
+  clear() {
+    this.sessionStorage.clear();
   }
 }

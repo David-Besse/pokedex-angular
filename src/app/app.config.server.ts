@@ -1,15 +1,25 @@
 import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
-import { BrowserStorageService } from './browser-storage.service';
-import { BrowserStorageServerService } from './browser-storage-server.service';
+import {
+  BrowserLocalStorageService,
+  BrowserSessionStorageService,
+} from './browser-storage.service';
+import {
+  BrowserLocalStorageServerService,
+  BrowserSessionStorageServerService,
+} from './browser-storage-server.service';
 
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     {
-      provide: BrowserStorageService,
-      useClass: BrowserStorageServerService,
+      provide: BrowserLocalStorageService,
+      useClass: BrowserLocalStorageServerService,
+    },
+    {
+      provide: BrowserSessionStorageService,
+      useClass: BrowserSessionStorageServerService,
     },
   ],
 };

@@ -5,6 +5,9 @@ import { InformationBoxService } from '../../information-box/service/information
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { InformationBoxComponent } from '../../information-box/information-box.component';
+import { BrowserSessionStorageService } from '../../browser-storage.service';
+import { of } from 'rxjs';
+// import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,29 +19,39 @@ import { InformationBoxComponent } from '../../information-box/information-box.c
 export default class LoginComponent implements OnInit {
   @Input() email: string = '';
   @Input() password: string = '';
- @ViewChild(InformationBoxComponent) informationBoxComponent!: InformationBoxComponent;
-  auth: AuthService;
-  minimizedLoginBox: boolean;
+  @ViewChild(InformationBoxComponent)
+  informationBoxComponent!: InformationBoxComponent;
+  minimizedLoginBox: boolean = false;
+  currentUser: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private informationBoxService: InformationBoxService
+    private informationBoxService: InformationBoxService,
+    private sessionStorageService: BrowserSessionStorageService
   ) {}
 
-  ngOnInit() {
-    this.auth = this.authService;
+  ngOnInit(): void {
+    const isUserConnected = this.sessionStorageService.get('login');
+
+    if (isUserConnected === 'true') {
+      this.authService.isLogged = of(true);
+      this.minimizedLoginBox = true;
+      this.router.navigate(['/pokemons']);
+    }
   }
 
   onSubmit() {
-    this.auth.login(this.email, this.password).subscribe((isLogged) => {
+    this.authService.login(this.email, this.password).subscribe((isLogged) => {
       isLogged ? this.handleSuccessfulLogin() : this.handleFailedLogin();
     });
   }
 
   handleSuccessfulLogin() {
-    this.minimizedLoginBox = true;
+    this.currentUser = this.email;
     this.router.navigate(['/pokemons']);
+    this.minimizedLoginBox = true;
+    this.sessionStorageService.set('login', 'true');
   }
 
   handleFailedLogin() {
@@ -49,9 +62,11 @@ export default class LoginComponent implements OnInit {
   }
 
   handleLogout() {
+    this.sessionStorageService.set('login', 'false');
     this.email = '';
     this.password = '';
-    this.auth.isLogged = false;
+    this.authService.isLogged = of(false);
+    this.minimizedLoginBox = false;
     this.router.navigate(['/login']);
   }
 }

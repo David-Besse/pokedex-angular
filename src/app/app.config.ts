@@ -11,7 +11,10 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BrowserStorageService } from './browser-storage.service';
+import {
+  BrowserLocalStorageService,
+  BrowserSessionStorageService,
+} from './browser-storage.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserModule, FormsModule),
     provideRouter(AppRoutes),
     provideClientHydration(),
-    BrowserStorageService,
+    BrowserLocalStorageService,
+    BrowserSessionStorageService,
   ],
 };

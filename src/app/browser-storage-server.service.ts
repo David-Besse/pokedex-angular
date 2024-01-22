@@ -1,8 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BrowserStorageService } from './browser-storage.service';
+import {
+  BrowserLocalStorageService,
+  BrowserSessionStorageService,
+} from './browser-storage.service';
 
 @Injectable()
-export class BrowserStorageServerService extends BrowserStorageService {
+export class BrowserLocalStorageServerService extends BrowserLocalStorageService {
+  constructor() {
+    super({
+      clear: () => {},
+      getItem: (key: string) => JSON.stringify({ key }),
+      setItem: (key: string, value: string) => JSON.stringify({ [key]: value }),
+      key: (index: number) => index.toString(),
+      length: 0,
+      removeItem: (key: string) => JSON.stringify({ key }),
+    });
+  }
+}
+
+@Injectable()
+export class BrowserSessionStorageServerService extends BrowserSessionStorageService {
   constructor() {
     super({
       clear: () => {},

@@ -1,5 +1,8 @@
 <!-- Loader -->
-<div *ngIf="!pokemon" class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center">
+<div
+  *ngIf="!pokemon"
+  class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center"
+>
   <app-loader class=""></app-loader>
 </div>
 
@@ -95,8 +98,8 @@
             <input
               type="checkbox"
               class="m-4"
-              id="{{type}}"
-              name="{{type}}"
+              id="{{ type }}"
+              name="{{ type }}"
               [value]="type"
               [checked]="hasType(type)"
               [disabled]="!isTypesValid(type)"
@@ -120,6 +123,7 @@
     <!-- Submit button -->
     <div class="mt-2 text-center">
       <button
+        type="button"
         class="bg-[#ffcd08] mr-4 hover:bg-white hover:shadow-[0px_0px_4px_4px_inset_#ffcd08] font-bold py-2 px-4 rounded-xl"
         (click)="goBack()"
         (keyup.enter)="goBack()"

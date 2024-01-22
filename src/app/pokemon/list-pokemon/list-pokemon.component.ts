@@ -15,7 +15,7 @@ import { SearchPokemonComponent } from '../search-pokemon/search-pokemon.compone
 import { LoaderComponent } from '../loader/loader.component';
 import { InformationBoxService } from '../../information-box/service/information-box.service';
 import { InformationBoxComponent } from '../../information-box/information-box.component';
-import { BrowserStorageService } from '../../browser-storage.service';
+import { BrowserSessionStorageService } from '../../browser-storage.service';
 
 @Component({
   selector: 'app-list-pokemon',
@@ -44,7 +44,7 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
   constructor(
     private pokemonService: PokemonService,
     private informationBoxService: InformationBoxService,
-    private browserStorage: BrowserStorageService,
+    private sessionStorageService: BrowserSessionStorageService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -54,7 +54,7 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
       .subscribe((pokemonList: Pokemon[] | []) => {
         this.pokemonList = pokemonList;
       });
-    this.lsInformationBox = this.browserStorage.get('informationBox');
+    this.lsInformationBox = this.sessionStorageService.get('informationBox');
   }
 
   ngAfterViewInit() {
@@ -62,8 +62,9 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
       this.informationBoxService.setText(
         'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
       );
+      this.informationBoxComponent.open();
+      this.sessionStorageService.set('informationBox', 'true');
     }
-    this.informationBoxComponent.open();
     this.cd.detectChanges(); // To avoid ExpressionChangedAfterItHasBeenCheckedError
   }
 }
