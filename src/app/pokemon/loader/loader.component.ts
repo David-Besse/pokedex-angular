@@ -1,3 +1,5 @@
+// Page loader
+
 import { Component } from '@angular/core';
 
 @Component({

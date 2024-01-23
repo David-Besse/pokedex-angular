@@ -1,3 +1,8 @@
+// This class is a component for editing a Pokemon.
+// ngOnInit(): Initializes the component by getting the Pokemon name from the route, retrieving the corresponding Pokemon from the service,
+// and setting the page title.
+// initTitle(pokemon: Pokemon | undefined): Sets the page title based on the Pokemon's name, or sets it to 'Pokemon not found' if the Pokemon is undefined.
+
 import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -22,6 +27,10 @@ export default class EditPokemonComponent implements OnInit {
     private titleService: Title
   ) {}
 
+  /**
+   * Initializes the component with the Pokemon data based on the route parameter.
+   *
+   */
   ngOnInit() {
     const pokemonName: string | null = this.route.snapshot.paramMap.get('name');
 
@@ -37,7 +46,13 @@ export default class EditPokemonComponent implements OnInit {
     }
   }
 
-  private initTitle(pokemon: Pokemon | undefined) {
+  /**
+   * Initializes the title based on the provided Pokemon object.
+   *
+   * @param {Pokemon | undefined} pokemon - The Pokemon object to set the title for
+   * @return {void} 
+   */
+  private initTitle(pokemon: Pokemon | undefined): void {
     if (!pokemon) {
       this.titleService.setTitle('Pokemon not found');
       return;

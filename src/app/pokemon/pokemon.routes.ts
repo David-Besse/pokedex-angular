@@ -1,3 +1,5 @@
+// Pokemon routes
+
 import { Routes } from '@angular/router';
 import { PokemonService } from './pokemon.service';
 import { guardianGuard } from '../guardian.guard';

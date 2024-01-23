@@ -2,7 +2,7 @@
   *ngIf="minimizedLoginBox"
   class="flex flex-col border rounded-xl w-fit absolute top-2 left-2 p-4"
 >
-  <p>Hello {{ currentUser || "anonymous" }} !</p>
+  <p>Hello {{ email || "anonymous" }} !</p>
   <span
     class="cursor-pointer text-[#3163b2]"
     (click)="handleLogout()"

@@ -1,3 +1,8 @@
+// This class definition is a component for listing Pokemon. Here's what each class method does:
+// ngOnInit(): Retrieves the list of Pokemon from the PokemonService and sets it to the pokemonList property.
+// It also retrieves information from the session storage.
+// ngAfterViewInit(): Sets up the information box and updates the change detector to avoid ExpressionChangedAfterItHasBeenCheckedError.
+
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -48,6 +53,11 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
     private cd: ChangeDetectorRef
   ) {}
 
+  /**
+   * Initialize the component with Pokemon list and information box data.
+   *
+   * @return {void}
+   */
   ngOnInit(): void {
     this.pokemonService
       .getPokemonList()
@@ -57,7 +67,13 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
     this.lsInformationBox = this.sessionStorageService.get('informationBox');
   }
 
-  ngAfterViewInit() {
+  /**
+   * ngAfterViewInit() function.
+   * Sets up the information box and updates the change detector to avoid ExpressionChangedAfterItHasBeenCheckedError.
+   *
+   * @return {void}
+   */
+  ngAfterViewInit(): void {
     if (!this.lsInformationBox) {
       this.informationBoxService.setText(
         'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'

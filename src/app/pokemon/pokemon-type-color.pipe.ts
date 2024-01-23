@@ -23,7 +23,15 @@ const colors: { [key: string]: string } = {
 
 @Pipe({ name: 'pokemonTypeColor', standalone: true })
 export class PokemonTypeColorPipe implements PipeTransform {
+
+  /**
+   * A function that takes a type and returns a string.
+   *
+   * @param {string} type - the type parameter (ex: fire, water, etc.)
+   * @return {string} the color corresponding to the type, or a default color
+   */
   transform(type: string): string {
     return colors[type] || '#a0a2a0';
   }
+
 }

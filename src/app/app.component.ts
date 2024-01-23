@@ -1,26 +1,42 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+// Root component
+
+import { Component, OnInit } from '@angular/core';
+import {
+  Router,
+  RouterLink,
+  RouterOutlet,
+  RouterLinkActive,
+} from '@angular/router';
 import LoginComponent from './auth/login/login.component';
-import { AuthService } from './auth/service/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [RouterOutlet, RouterLink, NgIf, LoginComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, NgIf],
 })
-export class AppComponent {
-  isConnected: boolean;
+export class AppComponent implements OnInit {
+  isLoginBoxMinimized: boolean = false;
 
-  constructor(private authService: AuthService) {
-    this.isLoginMinimized();
+  constructor(private router: Router) {}
+
+  /**
+   * Initialize the component when it is first loaded.
+   * Listen to the login event to minimize the login box.
+   */
+  ngOnInit() {
+    this.router.events.subscribe(() => this.onLogin());
   }
 
-  isLoginMinimized() {
-    this.authService.isLogged?.subscribe((isLogged) => {
-      isLogged ? (this.isConnected = true) : (this.isConnected = false);
-    });
+  /**
+   * Function to handle the login event.
+   * Minimize the login box if the current route is not /login, otherwise maximize it.
+   */
+  onLogin() {
+    this.router.url.includes('login')
+      ? (this.isLoginBoxMinimized = true)
+      : (this.isLoginBoxMinimized = false);
   }
 }

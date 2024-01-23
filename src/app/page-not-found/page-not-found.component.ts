@@ -1,3 +1,5 @@
+// Page not found
+
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 

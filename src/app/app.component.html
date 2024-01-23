@@ -9,7 +9,7 @@
     </a>
   </nav>
 
-  <app-login *ngIf="isConnected"></app-login>
+  <app-login *ngIf="!isLoginBoxMinimized"></app-login>
 
   <router-outlet></router-outlet>
 </main>
