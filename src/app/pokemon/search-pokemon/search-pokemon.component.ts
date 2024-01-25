@@ -12,6 +12,7 @@ import {
   Subject,
   debounceTime,
   distinctUntilChanged,
+  map,
   shareReplay,
   switchMap,
 } from 'rxjs';
@@ -27,7 +28,7 @@ import { PokemonService } from '../pokemon.service';
 export class SearchPokemonComponent implements OnInit {
   defaultInput: string;
   searchTerms = new Subject<string>();
-  pokemons$: Observable<Pokemon[]>;
+  pokemons$: Observable<Pokemon[] | undefined>;
 
   constructor(private router: Router, private pokemonService: PokemonService) {}
 
@@ -35,13 +36,14 @@ export class SearchPokemonComponent implements OnInit {
    * Initializes the component and sets up the observable to search for pokemons
    * based on the search terms entered by the user.
    *
-   * @return {void} 
+   * @return {void}
    */
   ngOnInit(): void {
     this.pokemons$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term) => this.pokemonService.searchPokemonByName(term)),
+      map((pokemons) => (pokemons.length > 0 ? pokemons : undefined)),
       shareReplay(1)
     );
   }
@@ -50,7 +52,7 @@ export class SearchPokemonComponent implements OnInit {
    * Handles the search functionality.
    *
    * @param {string} term - The search term
-   * @return {void} 
+   * @return {void}
    */
   search(term: string): void {
     this.searchTerms.next(term);
@@ -60,7 +62,7 @@ export class SearchPokemonComponent implements OnInit {
    * Navigates to the detail page of the given Pokemon.
    *
    * @param {Pokemon} pokemon - the Pokemon object
-   * @return {void} 
+   * @return {void}
    */
   goToDetail(pokemon: Pokemon): void {
     const link = ['/pokemons', pokemon.name];
