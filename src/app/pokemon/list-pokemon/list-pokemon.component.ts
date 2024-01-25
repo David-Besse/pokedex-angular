@@ -8,7 +8,6 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIf, NgFor, NgStyle, DatePipe } from '@angular/common';
@@ -43,8 +42,6 @@ import { BrowserSessionStorageService } from '../../browser-storage.service';
 export default class ListPokemonComponent implements OnInit, AfterViewInit {
   pokemonList: Pokemon[] | [];
   lsInformationBox: string | null;
-  @ViewChild(InformationBoxComponent)
-  informationBoxComponent!: InformationBoxComponent;
 
   constructor(
     private pokemonService: PokemonService,
@@ -64,7 +61,6 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
       .subscribe((pokemonList: Pokemon[] | []) => {
         this.pokemonList = pokemonList;
       });
-    this.lsInformationBox = this.sessionStorageService.get('informationBox');
   }
 
   /**
@@ -74,13 +70,18 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
    * @return {void}
    */
   ngAfterViewInit(): void {
-    if (!this.lsInformationBox) {
-      this.informationBoxService.setText(
-        'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
-      );
-      this.informationBoxComponent.open();
-      this.sessionStorageService.set('informationBox', 'true');
+    this.lsInformationBox = this.sessionStorageService.get('informationBox');
+    if (this.lsInformationBox !== 'viewed') {
+      setTimeout(() => {
+        this.informationBoxService.open(
+          'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
+        );
+        this.sessionStorageService.set('informationBox', 'viewed');
+      }, 200);
     }
-    this.cd.detectChanges(); // To avoid ExpressionChangedAfterItHasBeenCheckedError
+
+    //! Keep it commented for knowledge purposes.
+    //! To avoid ExpressionChangedAfterItHasBeenCheckedError when detecting changes.
+    // this.cd.detectChanges();
   }
 }

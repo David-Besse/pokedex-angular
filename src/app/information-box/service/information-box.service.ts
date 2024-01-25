@@ -2,13 +2,18 @@
 // getText(): Retrieves the text value as an observable.
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InformationBoxService {
-  private textSubject = new BehaviorSubject<string>('');
+  textSubject = new BehaviorSubject<string>('');
+  isDisplayed: Subject<boolean> = new Subject<boolean>();
+
+  constructor() {
+    this.isDisplayed.next(false);
+  }
 
   /**
    * Sets the text of the component.
@@ -27,5 +32,15 @@ export class InformationBoxService {
    */
   getText(): Observable<string> {
     return this.textSubject.asObservable();
+  }
+
+  close() {
+    this.setText('');
+    this.isDisplayed.next(false);
+  }
+
+  open(text: string) {
+    this.setText(text);
+    this.isDisplayed.next(true);
   }
 }

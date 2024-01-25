@@ -1,12 +1,13 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { InformationBoxService } from '../../information-box/service/information-box.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { InformationBoxComponent } from '../../information-box/information-box.component';
 import { BrowserSessionStorageService } from '../../browser-storage.service';
 import { LoginService } from './login.service';
+import { MinimizedLoginService } from './minimized-login/minimized-login.service';
+import { InformationBoxComponent } from '../../information-box/information-box.component';
 
 @Component({
   selector: 'app-login',
@@ -19,23 +20,25 @@ export default class LoginComponent implements OnInit {
   @Input() email: string = '';
   @Input() password: string = '';
   isLoginPageHidden: boolean = false;
-  @ViewChild(InformationBoxComponent)
-  informationBoxComponent!: InformationBoxComponent;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private informationBoxService: InformationBoxService,
     private sessionStorageService: BrowserSessionStorageService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private minimizedLoginService: MinimizedLoginService
   ) {}
 
   ngOnInit(): void {
+    const userId = this.sessionStorageService.get('userId');
     const isUserConnected = this.sessionStorageService.get('login');
 
-    if (isUserConnected === 'true') {
+    if (isUserConnected === 'true' && userId) {
       this.authService.isLogged = true;
       this.isLoginPageHidden = true;
+      this.minimizedLoginService.isLoginMinimizedDisplayed.next(true);
+      this.minimizedLoginService.userEmail.next(userId);
       this.router.navigate(['/pokemons']);
     }
   }
@@ -44,19 +47,18 @@ export default class LoginComponent implements OnInit {
     this.loginService
       .checkUserCredentials(this.email, this.password)
       .subscribe((isLogged) => {
-        isLogged ? this.showSuccessfulLogin() : this.showFailedLogin();
+        isLogged ? this.successfulLogin() : this.failedLogin();
       });
   }
 
-  showSuccessfulLogin() {
-    this.informationBoxService.setText('You are connected !');
-    this.informationBoxComponent.open();
-    this.isLoginPageHidden = this.loginService.isLoginMinimizedDisplayed;
+  successfulLogin() {
+    this.isLoginPageHidden = true;
+    this.minimizedLoginService.isLoginMinimizedDisplayed.next(true);
+    this.minimizedLoginService.userEmail.next(this.email);
   }
 
-  showFailedLogin() {
-    this.informationBoxService.setText('Wrong email or password');
-    this.informationBoxComponent.open();
+  failedLogin() {
+    this.informationBoxService.open('Wrong email or password');
     this.email = '';
     this.password = '';
   }
