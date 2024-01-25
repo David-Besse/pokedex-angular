@@ -9,13 +9,21 @@ import {
 } from '@angular/router';
 import LoginComponent from './auth/login/login.component';
 import { NgIf } from '@angular/common';
+import { MinimizedLoginComponent } from './auth/login/minimized-login/minimized-login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, NgIf],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    LoginComponent,
+    NgIf,
+    MinimizedLoginComponent,
+  ],
 })
 export class AppComponent implements OnInit {
   isLoginBoxMinimized: boolean = false;

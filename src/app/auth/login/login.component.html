@@ -1,20 +1,5 @@
 <div
-  *ngIf="minimizedLoginBox"
-  class="flex flex-col border rounded-xl w-fit absolute top-2 left-2 p-4"
->
-  <p>Hello {{ email || "anonymous" }} !</p>
-  <span
-    class="cursor-pointer text-[#3163b2]"
-    (click)="handleLogout()"
-    (keyup.enter)="handleLogout()"
-    tabindex="0"
-  >
-    Disconnect
-  </span>
-</div>
-
-<div
-  *ngIf="!minimizedLoginBox"
+  *ngIf="!isLoginPageHidden"
   class="flex flex-col justify-center items-center mt-24"
 >
   <app-information-box class=""></app-information-box>
