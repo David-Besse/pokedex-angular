@@ -98,10 +98,15 @@ export class PokemonService {
    * @return {Observable<string[]>} Observable of string array containing Pokemon types
    */
   getPokemonTypesList(): Observable<string[]> {
+    // Send an HTTP GET request to the specified URI to fetch a list of Pokemon data
     return this.http.get<Pokemon[]>(this.uri).pipe(
+      // Log a message to the console indicating that the Pokemon list is being fetched to get types
       tap(() => this.log('fetched pokemons list to get types')),
+      // Handle any errors that may occur during the HTTP GET request, returning an empty array in case of failure
       catchError(this.handleError('GET pokemons list failed', [])),
+      // Map the retrieved Pokemon list to extract the types of each Pokemon and flatten the resulting array
       map((pokemonsList) => pokemonsList.flatMap((pokemon) => pokemon.types)),
+      // Convert the array of types to a set to remove duplicates, then convert it back to an array and return it
       map((types) => [...new Set(types)] as string[])
     );
   }

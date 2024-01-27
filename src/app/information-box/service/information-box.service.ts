@@ -1,6 +1,3 @@
-// setText(text: string): Sets the text value using the BehaviorSubject.
-// getText(): Retrieves the text value as an observable.
-
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
@@ -34,12 +31,21 @@ export class InformationBoxService {
     return this.textSubject.asObservable();
   }
 
+  /**
+   * Closes the function by setting the text to an empty string and signaling that it is not displayed.
+   */
   close() {
     this.setText('');
     this.isDisplayed.next(false);
   }
 
-  open(text: string) {
+  /**
+   * Opens the text.
+   *
+   * @param {string} text - the text to be opened
+   * @return void 
+   */
+  open(text: string): void {
     this.setText(text);
     this.isDisplayed.next(true);
   }

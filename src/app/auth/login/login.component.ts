@@ -30,6 +30,11 @@ export default class LoginComponent implements OnInit {
     private minimizedLoginService: MinimizedLoginService
   ) {}
 
+  /**
+   * Initialize the component and perform user authentication based on session data.
+   *
+   * @return {void} 
+   */
   ngOnInit(): void {
     const userId = this.sessionStorageService.get('userId');
     const isUserConnected = this.sessionStorageService.get('login');
@@ -43,7 +48,13 @@ export default class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  /**
+   * Handle the submission of the form.
+   *
+   * @param None
+   * @return void
+   */
+  onSubmit(): void {
     this.loginService
       .checkUserCredentials(this.email, this.password)
       .subscribe((isLogged) => {
@@ -51,13 +62,24 @@ export default class LoginComponent implements OnInit {
       });
   }
 
-  successfulLogin() {
+  /**
+   * This function handles a successful login by hiding the login page,
+   * displaying the minimized login, and updating the user email.
+   * 
+   * @return void
+   */
+  successfulLogin(): void {
     this.isLoginPageHidden = true;
     this.minimizedLoginService.isLoginMinimizedDisplayed.next(true);
     this.minimizedLoginService.userEmail.next(this.email);
   }
 
-  failedLogin() {
+  /**
+   * failedLogin function.
+   * 
+   * @returns void
+   */
+  failedLogin(): void {
     this.informationBoxService.open('Wrong email or password');
     this.email = '';
     this.password = '';

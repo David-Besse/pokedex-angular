@@ -1,6 +1,4 @@
-// This class is a component for a minimized login feature in an Angular application. Here's a list of what each method does:
-// ngOnInit(): Initializes the component and subscribes to the minimizedLoginService to update the display of the login and the user email.
-// disconnect(): Disconnects the user by updating the state of minimized login display and user email to 'anonymous' and handles the logout.
+// This class is a component for a minimized login feature.
 
 import { Component, OnInit } from '@angular/core';
 import LoginComponent from '../login.component';

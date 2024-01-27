@@ -1,10 +1,5 @@
 // This TypeScript class defines a directive called BorderCardDirective, which handles mouse enter and mouse leave events by scaling
 // the element, setting box shadow, and updating the z-index.
-// onMouseEnter(): Handles the mouse enter event by scaling, setting box shadow, and updating z-index.
-// onMouseLeave(): Handles the mouse leave event by resetting the scale, box shadow, and z-index.
-// setScale(scale: number): Sets the scale of the element.
-// setBoxShadow(boxShadow: string): Sets the box shadow style for the element.
-// setZindex(zindex: number): Sets the z-index of the element.
 
 import { Directive, ElementRef, HostListener } from '@angular/core';
 

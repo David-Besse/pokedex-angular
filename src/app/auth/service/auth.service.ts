@@ -1,7 +1,4 @@
-// This class definition is for the AuthService. Here's what each method does:
-// constructor: Initializes the AuthService with an instance of the HttpClient.
-// login: Sends a request to the server to check if the given email and password match any user, and sets the isLogged property based on the result.
-// logout: Sets the isLogged property to false, effectively logging the user out.
+// This class definition is for the AuthService.
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

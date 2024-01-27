@@ -13,9 +13,9 @@ const pokemonRoutes: Routes = [
       {
         path: 'pokemons/edit/:name',
         loadComponent: () => import('./edit-pokemon/edit-pokemon.component'),
-        // IMPORTANT: The component will not be found if it is not defined as a default export.
-        // However, we can use a promise to import the module and retrieve the component, which gets around this limitation:
-        // import('./edit-pokemon/edit-pokemon.component').then((m) => m.EditPokemonComponent)
+        //! IMPORTANT: The component will not be found if it is not defined as a default export.
+        //* However, we can use a promise to import the module and retrieve the component, which gets around this limitation:
+        //* import('./edit-pokemon/edit-pokemon.component').then((m) => m.EditPokemonComponent)
       },
       {
         path: 'pokemons/add',

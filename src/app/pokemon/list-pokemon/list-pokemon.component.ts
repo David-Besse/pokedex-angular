@@ -1,7 +1,4 @@
-// This class definition is a component for listing Pokemon. Here's what each class method does:
-// ngOnInit(): Retrieves the list of Pokemon from the PokemonService and sets it to the pokemonList property.
-// It also retrieves information from the session storage.
-// ngAfterViewInit(): Sets up the information box and updates the change detector to avoid ExpressionChangedAfterItHasBeenCheckedError.
+// This class definition is a component for listing Pokemon.
 
 import {
   AfterViewInit,

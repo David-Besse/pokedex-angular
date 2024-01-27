@@ -1,7 +1,4 @@
-// This class is a component for displaying information. Here's what each method does:
-
-// close(): Clears the text and hides the component.
-// open(): Retrieves text from the service and displays it in the component.
+// This class is a component for displaying information.
 
 import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
@@ -20,6 +17,9 @@ export class InformationBoxComponent implements OnInit {
 
   constructor(private informationBoxService: InformationBoxService) {}
 
+  /**
+   * Initializes the component with text and display status from the information box service.
+   */
   ngOnInit() {
     this.informationBoxService.getText().subscribe((text) => {
       this.textToDisplay = text;
@@ -29,6 +29,10 @@ export class InformationBoxComponent implements OnInit {
     });
   }
 
+  /**
+   * Closes the information box.
+   *
+   */
   closeInformationBox() {
     this.informationBoxService.close();
   }

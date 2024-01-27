@@ -16,6 +16,13 @@ export class LoginService {
     private sessionStorageService: BrowserSessionStorageService
   ) {}
 
+  /**
+   * Checks the user credentials by attempting to login with the provided email and password.
+   *
+   * @param {string} email - the user's email
+   * @param {string} password - the user's password
+   * @return {Observable<boolean>} an observable that emits a boolean indicating if the login was successful
+   */
   checkUserCredentials(email: string, password: string): Observable<boolean> {
     return this.authService.login(email, password).pipe(
       map((isLogged) => {
@@ -29,6 +36,12 @@ export class LoginService {
     );
   }
 
+  /**
+   * Handles a successful login by setting flags and navigating to the /pokemons route.
+   *
+   * @param {string} email - the email of the logged in user
+   * @return {void}
+   */
   handleSuccessfulLogin(email: string) {
     this.isLoginMinimizedDisplayed = true;
     this.sessionStorageService.set('userId', email);
@@ -36,6 +49,10 @@ export class LoginService {
     this.router.navigate(['/pokemons']);
   }
 
+  /**
+   * Handles the logout process by clearing the session storage, logging out the user,
+   * and navigating to the login page.
+   */
   handleLogout() {
     this.isLoginMinimizedDisplayed = false;
     this.sessionStorageService.clear();

@@ -48,7 +48,7 @@ export default class DetailPokemonComponent implements OnInit, AfterViewInit {
    */
   ngOnInit(): void {
     const pokemonName: string | null =
-      this.currentRoute.snapshot.paramMap.get('name');
+      this.currentRoute?.snapshot?.paramMap?.get('name');
 
     if (pokemonName) {
       this.pokemonService.getPokemonByName(pokemonName).subscribe((pokemon) => {
