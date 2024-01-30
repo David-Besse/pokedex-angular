@@ -19,7 +19,8 @@ import {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
-    importProvidersFrom(BrowserModule, FormsModule),
+    importProvidersFrom(BrowserModule, FormsModule, BrowserLocalStorageService,
+      BrowserSessionStorageService,),
     provideRouter(AppRoutes),
     provideClientHydration(),
     BrowserLocalStorageService,

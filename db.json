@@ -27,7 +27,7 @@
       "id": "3",
       "name": "Carapuce",
       "hp": "21",
-      "cp": "4",
+      "cp": 4,
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png",
       "types": [
         "Eau"
@@ -38,7 +38,7 @@
       "id": "4",
       "name": "Aspicot",
       "hp": 18,
-      "cp": "2",
+      "cp": 3,
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png",
       "types": [
         "Insecte",

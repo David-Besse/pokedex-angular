@@ -108,6 +108,23 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "angular-pokedex:build:production",
+              "serveTarget": "angular-pokedex:serve:production"
+            },
+            "development": {
+              "buildTarget": "angular-pokedex:build:development",
+              "serveTarget": "angular-pokedex:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
