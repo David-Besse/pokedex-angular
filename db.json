@@ -50,7 +50,7 @@
       "id": "5",
       "name": "Roucool",
       "hp": "30",
-      "cp": "7",
+      "cp": 8,
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png",
       "types": [
         "Normal",
