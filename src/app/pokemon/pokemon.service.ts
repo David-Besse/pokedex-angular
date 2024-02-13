@@ -16,7 +16,7 @@ import { Observable, catchError, delay, map, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class PokemonService {
-  uri: string = 'http://localhost:3000/apipokemons';
+  uri: string = 'http://localhost:8080/apipokemons';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

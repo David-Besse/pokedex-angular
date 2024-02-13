@@ -1,8 +1,8 @@
 // This class definition is for the AuthService.
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 
 interface User {
   email: string;
@@ -13,6 +13,10 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
+  uri: string = 'http://localhost:8080/login';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
   isLogged: boolean;
 
   constructor(private http: HttpClient) {}
@@ -25,11 +29,25 @@ export class AuthService {
    * @return {Observable<boolean>} an observable that emits a boolean value indicating if the login was successful
    */
   login(givenEmail: string, givenPassword: string): Observable<boolean> {
-    const checkUser = this.http
-      .get<User[]>(`http://localhost:3000/users?email=${givenEmail}`)
+    const checkUser: Observable<boolean> = this.http
+      .post<User>(
+        this.uri,
+        {
+          email: givenEmail,
+          password: givenPassword,
+        },
+        this.httpOptions
+      )
       .pipe(
-        map((users) => {
-          return users.some((user) => user.password === givenPassword);
+        map((user) => {
+          if (!user) {
+            return false;
+          }
+          return true;
+        }),
+        catchError((error) => {
+          console.error('User not found', error);
+          return of(false);
         })
       );
 
@@ -38,6 +56,8 @@ export class AuthService {
         isLogged ? (this.isLogged = true) : (this.isLogged = false);
       })
     );
+
+    // return of(true).pipe(tap((isLogged) => (this.isLogged = isLogged)));
   }
 
   /**

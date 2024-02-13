@@ -5,7 +5,7 @@ export class Pokemon {
   cp: number;
   picture: string;
   types: string[];
-  created: Date;
+  created: string;
 
   constructor(
     name: string = '...',
@@ -13,7 +13,7 @@ export class Pokemon {
     cp: number = 0,
     picture: string = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/xxx.png',
     types: string[] = ['Normal'],
-    created: Date = new Date()
+    created: string = new Date().toString()
   ) {
     this.name = name;
     this.hp = hp;

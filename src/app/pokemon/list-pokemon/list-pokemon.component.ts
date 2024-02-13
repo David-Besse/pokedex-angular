@@ -78,7 +78,8 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
     }
 
     //! Keep it commented for knowledge purposes.
-    //! To avoid ExpressionChangedAfterItHasBeenCheckedError when detecting changes.
+    //! To avoid ExpressionChangedAfterItHasBeenCheckedError when detecting changes
+    //! workaround: add a setTimeout() in the ngAfterViewInit()
     // this.cd.detectChanges();
   }
 }
