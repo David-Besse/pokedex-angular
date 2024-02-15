@@ -16,9 +16,12 @@ import { Observable, catchError, delay, map, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class PokemonService {
-  uri: string = 'http://localhost:8080/apipokemons';
+  uri: string = 'http://localhost:8080/api/pokemons';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    withCredentials: true,
   };
 
   constructor(private http: HttpClient) {}
@@ -59,7 +62,7 @@ export class PokemonService {
    * @return {Observable<Pokemon[]>} an observable of the list of pokemons
    */
   getPokemonList(): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.uri).pipe(
+    return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
       tap(() => this.log('fetched pokemons')),
       catchError(this.handleError('GET pokemons list failed', []))
     );
@@ -71,11 +74,13 @@ export class PokemonService {
    * @param {number} pokemonId - The ID of the Pokemon to retrieve.
    * @return {Observable<Pokemon | undefined>} An observable of the Pokemon or undefined.
    */
-  getPokemonById(pokemonId: number): Observable<Pokemon | undefined> {
-    return this.http.get<Pokemon>(`${this.uri}/${pokemonId}`).pipe(
-      tap(() => this.log(`fetched pokemon id=${pokemonId}`)),
-      catchError(this.handleError('GET a pokemon by id failed', undefined))
-    );
+  getPokemonById(pokemonId: string): Observable<Pokemon | undefined> {
+    return this.http
+      .get<Pokemon>(`${this.uri}/${pokemonId}`, this.httpOptions)
+      .pipe(
+        tap(() => this.log(`fetched pokemon id=${pokemonId}`)),
+        catchError(this.handleError('GET a pokemon by id failed', undefined))
+      );
   }
 
   /**
@@ -99,7 +104,7 @@ export class PokemonService {
    */
   getPokemonTypesList(): Observable<string[]> {
     // Send an HTTP GET request to the specified URI to fetch a list of Pokemon data
-    return this.http.get<Pokemon[]>(this.uri).pipe(
+    return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
       // Log a message to the console indicating that the Pokemon list is being fetched to get types
       tap(() => this.log('fetched pokemons list to get types')),
       // Handle any errors that may occur during the HTTP GET request, returning an empty array in case of failure
@@ -169,7 +174,7 @@ export class PokemonService {
 
     const termTrimmed = term.trim();
 
-    const searchList = this.http.get<Pokemon[]>(`${this.uri}`).pipe(
+    const searchList = this.http.get<Pokemon[]>(`${this.uri}`, this.httpOptions).pipe(
       tap(() => this.log(`found pokemons matching "${term}"`)),
       catchError(this.handleError('search pokemons failed', []))
     );

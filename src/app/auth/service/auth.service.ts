@@ -13,7 +13,7 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  uri: string = 'http://localhost:8080/login';
+  uri: string = 'http://localhost:8080/api/login';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -56,8 +56,6 @@ export class AuthService {
         isLogged ? (this.isLogged = true) : (this.isLogged = false);
       })
     );
-
-    // return of(true).pipe(tap((isLogged) => (this.isLogged = isLogged)));
   }
 
   /**

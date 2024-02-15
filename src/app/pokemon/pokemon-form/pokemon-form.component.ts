@@ -105,11 +105,11 @@ export class PokemonFormComponent implements OnInit {
       this.pokemonService
         .addPokemon(this.pokemon)
         .subscribe((pokemon) =>
-          this.router.navigate(['/pokemons', pokemon.name])
+          this.router.navigate(['/pokemons', pokemon.id])
         );
     } else {
       this.pokemonService.updatePokemon(this.pokemon).subscribe(() => {
-        this.router.navigate(['/pokemons', this.pokemon.name]);
+        this.router.navigate(['/pokemons', this.pokemon.id]);
       });
     }
   }
@@ -124,7 +124,7 @@ export class PokemonFormComponent implements OnInit {
     const currentUrl = this.router.url.includes('edit');
 
     if (currentUrl) {
-      this.router.navigate(['/pokemons/', this.pokemon.name]);
+      this.router.navigate(['/pokemons/', this.pokemon.id]);
     } else {
       this.router.navigate(['/pokemons']);
     }

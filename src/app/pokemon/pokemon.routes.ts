@@ -11,7 +11,7 @@ const pokemonRoutes: Routes = [
     canActivate: [guardianGuard],
     children: [
       {
-        path: 'pokemons/edit/:name',
+        path: 'pokemons/edit/:id',
         loadComponent: () => import('./edit-pokemon/edit-pokemon.component'),
         //! IMPORTANT: The component will not be found if it is not defined as a default export.
         //* However, we can use a promise to import the module and retrieve the component, which gets around this limitation:
@@ -23,7 +23,7 @@ const pokemonRoutes: Routes = [
         loadComponent: () => import('./add-pokemon/add-pokemon.component'),
       },
       {
-        path: 'pokemons/:name',
+        path: 'pokemons/:id',
         loadComponent: () =>
           import('./detail-pokemon/detail-pokemon.component'),
       },

@@ -47,14 +47,14 @@ export default class DetailPokemonComponent implements OnInit, AfterViewInit {
    * @return {void}
    */
   ngOnInit(): void {
-    const pokemonName: string | null =
-      this.currentRoute?.snapshot?.paramMap?.get('name');
+    const pokemonId: string | null =
+      this.currentRoute.snapshot.paramMap.get('id');
 
-    if (pokemonName) {
-      this.pokemonService.getPokemonByName(pokemonName).subscribe((pokemon) => {
+    if (pokemonId) {
+      this.pokemonService.getPokemonById(pokemonId).subscribe((pokemon) => {
         if (pokemon) {
-          this.pokemonSelected = pokemon[0];
-          this.initTitle(pokemon[0]);
+          this.pokemonSelected = pokemon;
+          this.initTitle(pokemon);
         }
       });
     }
@@ -98,7 +98,7 @@ export default class DetailPokemonComponent implements OnInit, AfterViewInit {
    * @param {Pokemon} pokemon - the pokemon to be edited
    */
   goEdit(pokemon: Pokemon) {
-    this.router.navigate([`/pokemons/edit/${pokemon.name}`]);
+    this.router.navigate([`/pokemons/edit/${pokemon.id}`]);
   }
 
   /**

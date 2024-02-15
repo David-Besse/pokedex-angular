@@ -29,13 +29,13 @@ export default class EditPokemonComponent implements OnInit {
    *
    */
   ngOnInit() {
-    const pokemonName: string | null = this.route.snapshot.paramMap.get('name');
+    const pokemonId: string | null = this.route.snapshot.paramMap.get('id');
 
-    if (pokemonName) {
-      this.pokemonService.getPokemonByName(pokemonName).subscribe((pokemon) => {
+    if (pokemonId) {
+      this.pokemonService.getPokemonById(pokemonId).subscribe((pokemon) => {
         if (pokemon) {
-          this.pokemon = pokemon[0];
-          this.initTitle(pokemon[0]);
+          this.pokemon = pokemon;
+          this.initTitle(pokemon);
         } else {
           this.pokemon = undefined;
           this.initTitle(undefined);

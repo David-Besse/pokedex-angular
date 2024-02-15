@@ -42,7 +42,7 @@ export class LoginService {
    * @param {string} email - the email of the logged in user
    * @return {void}
    */
-  handleSuccessfulLogin(email: string) {
+  handleSuccessfulLogin(email: string): void {
     this.isLoginMinimizedDisplayed = true;
     this.sessionStorageService.set('userId', email);
     this.sessionStorageService.set('login', 'true');

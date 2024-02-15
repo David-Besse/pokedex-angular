@@ -17,7 +17,7 @@ describe('DetailPokemonComponent', () => {
     id: 1,
     types: ['electric'],
     picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png',
-    created: new Date(),
+    created: String(new Date()),
     hp: 10,
     cp: 5,
   };
