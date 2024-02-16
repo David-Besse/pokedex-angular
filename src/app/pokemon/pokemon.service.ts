@@ -10,7 +10,9 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, delay, map, of, tap } from 'rxjs';
+import { Observable, catchError, delay, map, of, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { LoginService } from '../auth/login/login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +20,14 @@ import { Observable, catchError, delay, map, of, tap } from 'rxjs';
 export class PokemonService {
   uri: string = 'http://localhost:8080/api/pokemons';
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-    withCredentials: true,
+    headers: new HttpHeaders().set('Content-Type', 'application/json'),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private readonly loginService: LoginService
+  ) {}
 
   /**
    * Logs the given response using console.table.
@@ -64,7 +67,15 @@ export class PokemonService {
   getPokemonList(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
       tap(() => this.log('fetched pokemons')),
-      catchError(this.handleError('GET pokemons list failed', []))
+      catchError((error) => {
+        this.handleError('GET pokemons list failed', []);
+
+        if (error.status === 403) {
+          this.loginService.handleLogout();
+        }
+
+        return throwError(() => error);
+      })
     );
   }
 
@@ -174,10 +185,12 @@ export class PokemonService {
 
     const termTrimmed = term.trim();
 
-    const searchList = this.http.get<Pokemon[]>(`${this.uri}`, this.httpOptions).pipe(
-      tap(() => this.log(`found pokemons matching "${term}"`)),
-      catchError(this.handleError('search pokemons failed', []))
-    );
+    const searchList = this.http
+      .get<Pokemon[]>(`${this.uri}`, this.httpOptions)
+      .pipe(
+        tap(() => this.log(`found pokemons matching "${term}"`)),
+        catchError(this.handleError('search pokemons failed', []))
+      );
 
     return searchList.pipe(
       map((pokemons) => {

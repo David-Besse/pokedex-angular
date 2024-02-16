@@ -2,7 +2,7 @@
 
 import {
   AfterViewInit,
-  ChangeDetectorRef,
+  // ChangeDetectorRef,
   Component,
   OnInit,
 } from '@angular/core';
@@ -44,7 +44,7 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
     private pokemonService: PokemonService,
     private informationBoxService: InformationBoxService,
     private sessionStorageService: BrowserSessionStorageService,
-    private cd: ChangeDetectorRef
+    // private cd: ChangeDetectorRef
   ) {}
 
   /**
