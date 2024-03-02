@@ -56,7 +56,10 @@ export class LoginService {
   handleLogout() {
     this.isLoginMinimizedDisplayed = false;
     this.sessionStorageService.clear();
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe((res) => {
+      if (res) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

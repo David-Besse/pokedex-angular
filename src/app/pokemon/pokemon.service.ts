@@ -9,10 +9,15 @@
 
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable, catchError, delay, map, of, tap, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { LoginService } from '../auth/login/login.service';
+import { MinimizedLoginService } from '../auth/login/minimized-login/minimized-login.service';
+import { InformationBoxService } from '../information-box/service/information-box.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +30,9 @@ export class PokemonService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private readonly loginService: LoginService
+    private readonly loginService: LoginService,
+    private readonly minimizedLoginService: MinimizedLoginService,
+    private readonly informationBoxService: InformationBoxService
   ) {}
 
   /**
@@ -40,23 +46,24 @@ export class PokemonService {
   }
 
   /**
-   * A function that handles errors for a given operation.
+   * Handles the error response from the HTTP request.
    *
-   * @param {string} operation - the name of the operation
-   * @param {T} result - the result of the operation
-   * @return {(error: Pokemon | undefined | []) => Observable<T>} a function that takes an error and returns an Observable of type T
+   * @param {HttpErrorResponse} error - the error response from the HTTP request
+   * @return {Observable<never>} an observable that emits an error
    */
-  private handleError<T>(
-    operation: string = 'operation',
-    result?: T
-  ): (error: Pokemon | undefined | []) => Observable<T> {
-    return (error) => {
-      if (error) {
-        console.error(error);
-        this.log(`${operation} failed: ${error}`);
-      }
-      return of(result as T);
-    };
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.status === 403 || error.status === 401) {
+      this.minimizedLoginService.isLoginMinimizedDisplayed.next(false);
+      this.loginService.handleLogout();
+    }
+
+    setTimeout(() => {
+      this.informationBoxService.open(
+        'An internal error occurred. Please reconnect.'
+      );
+    }, 100);
+
+    return throwError(() => error);
   }
 
   /**
@@ -67,15 +74,7 @@ export class PokemonService {
   getPokemonList(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
       tap(() => this.log('fetched pokemons')),
-      catchError((error) => {
-        this.handleError('GET pokemons list failed', []);
-
-        if (error.status === 403) {
-          this.loginService.handleLogout();
-        }
-
-        return throwError(() => error);
-      })
+      catchError((error) => this.handleError(error))
     );
   }
 
@@ -89,8 +88,9 @@ export class PokemonService {
     return this.http
       .get<Pokemon>(`${this.uri}/${pokemonId}`, this.httpOptions)
       .pipe(
+        delay(500), // simulate server latency for educational purposes and to show loading component
         tap(() => this.log(`fetched pokemon id=${pokemonId}`)),
-        catchError(this.handleError('GET a pokemon by id failed', undefined))
+        catchError((error) => this.handleError(error))
       );
   }
 
@@ -104,7 +104,7 @@ export class PokemonService {
     return this.http.get<Pokemon[]>(`${this.uri}?name=${pokemonName}`).pipe(
       delay(500), // simulate server latency for educational purposes and to show loading component
       tap(() => this.log(`fetched pokemon name=${pokemonName}`)),
-      catchError(this.handleError('GET a pokemon by name failed', undefined))
+      catchError((error) => this.handleError(error))
     );
   }
 
@@ -119,7 +119,7 @@ export class PokemonService {
       // Log a message to the console indicating that the Pokemon list is being fetched to get types
       tap(() => this.log('fetched pokemons list to get types')),
       // Handle any errors that may occur during the HTTP GET request, returning an empty array in case of failure
-      catchError(this.handleError('GET pokemons list failed', [])),
+      catchError((error) => this.handleError(error)),
       // Map the retrieved Pokemon list to extract the types of each Pokemon and flatten the resulting array
       map((pokemonsList) => pokemonsList.flatMap((pokemon) => pokemon.types)),
       // Convert the array of types to a set to remove duplicates, then convert it back to an array and return it
@@ -138,7 +138,7 @@ export class PokemonService {
       .put<Pokemon>(`${this.uri}/${pokemon.id}`, pokemon, this.httpOptions)
       .pipe(
         tap(() => this.log(`updated hero id=${pokemon.id}`)),
-        catchError(this.handleError('UPDATE a pokemon failed', undefined))
+        catchError((error) => this.handleError(error))
       );
   }
 
@@ -153,7 +153,7 @@ export class PokemonService {
       tap((newPokemon: Pokemon) =>
         this.log(`added hero w/ id=${newPokemon.id}`)
       ),
-      catchError(this.handleError('ADD a pokemon failed', pokemon))
+      catchError((error) => this.handleError(error))
     );
   }
 
@@ -168,7 +168,7 @@ export class PokemonService {
       .delete<null>(`${this.uri}/${pokemonId}`, this.httpOptions)
       .pipe(
         tap(() => this.log(`deleted pokemon id=${pokemonId}`)),
-        catchError(this.handleError('DELETE a pokemon failed', null))
+        catchError((error) => this.handleError(error))
       );
   }
 
@@ -189,7 +189,7 @@ export class PokemonService {
       .get<Pokemon[]>(`${this.uri}`, this.httpOptions)
       .pipe(
         tap(() => this.log(`found pokemons matching "${term}"`)),
-        catchError(this.handleError('search pokemons failed', []))
+        catchError((error) => this.handleError(error))
       );
 
     return searchList.pipe(

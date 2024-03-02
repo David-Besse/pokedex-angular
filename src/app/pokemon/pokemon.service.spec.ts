@@ -17,7 +17,7 @@ describe('PokemonService', () => {
       types: ['electric'],
       picture:
         'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png',
-      created: new Date(),
+      created: new Date().toString(),
       hp: 10,
       cp: 5,
     },
@@ -27,7 +27,7 @@ describe('PokemonService', () => {
       types: ['fire'],
       picture:
         'https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png',
-      created: new Date(),
+      created: new Date().toString(),
       hp: 10,
       cp: 5,
     },
@@ -66,7 +66,7 @@ describe('PokemonService', () => {
   // Test for retrieving a pokemon by id
   it('should retrieve a pokemon by id', () => {
     service
-      .getPokemonById(1) // Get a pokemon by id
+      .getPokemonById('1') // Get a pokemon by id
       .subscribe((pokemon) => expect(pokemon).toEqual(mockPokemons[0])); // Subscribe to the retrieved pokemon and expect it to equal the first mock pokemon
     const req = httpTestingController.expectOne(
       // Expect a single HTTP request
@@ -98,7 +98,7 @@ describe('PokemonService', () => {
       types: ['electric'],
       picture:
         'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png',
-      created: new Date(),
+      created: new Date().toString(),
       hp: 10,
       cp: 5,
     };
@@ -124,7 +124,7 @@ describe('PokemonService', () => {
       types: ['electric'],
       picture:
         'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png',
-      created: new Date(),
+      created: new Date().toString(),
       hp: 10,
       cp: 5,
     };

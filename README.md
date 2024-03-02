@@ -1,2 +1,3 @@
 # angular-pokedex
-Small project using Angular
+
+Small project using Angular 17

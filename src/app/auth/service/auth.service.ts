@@ -13,7 +13,7 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  uri: string = 'http://localhost:8080/api/login';
+  uri: string = 'http://localhost:8080/api';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -31,7 +31,7 @@ export class AuthService {
   login(givenEmail: string, givenPassword: string): Observable<boolean> {
     const checkUser: Observable<boolean> = this.http
       .post<User>(
-        this.uri,
+        this.uri + '/login',
         {
           email: givenEmail,
           password: givenPassword,
@@ -61,9 +61,14 @@ export class AuthService {
   /**
    * Logout the user by setting isLogged to false.
    *
-   * @return {void}
+   * @return {Observable<boolean>} an observable that emits a boolean value indicating if the logout was successful
    */
-  logout(): void {
-    this.isLogged = false;
+  logout(): Observable<boolean> {
+    return this.http.post<boolean>(this.uri + '/logout', {}).pipe(
+      map((res) => res),
+      tap(() => {
+        this.isLogged = false;
+      })
+    );
   }
 }

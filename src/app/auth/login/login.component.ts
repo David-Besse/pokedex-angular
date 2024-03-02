@@ -33,7 +33,7 @@ export default class LoginComponent implements OnInit {
   /**
    * Initialize the component and perform user authentication based on session data.
    *
-   * @return {void} 
+   * @return {void}
    */
   ngOnInit(): void {
     const userId = this.sessionStorageService.get('userId');
