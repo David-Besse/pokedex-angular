@@ -1,6 +1,6 @@
 <div
   *ngIf="isLoginMinimizedDisplayed"
-  class="flex flex-col justify-center items-center text-center w-fit fixed top-2 left-2 p-2 border-2 rounded-2xl border-[#3163b2] bg-white z-10"
+  class="flex flex-col justify-center items-center text-center w-[150px] fixed top-1/4 -left-[150px] p-2 border-2 rounded-se-3xl rounded-ee-3xl border-[#3163b2] bg-white z-10 transition-all duration-700 ease-in-out shadow-[0px_0px_38px_34px_inset_#3163b2] hover:-left-2 hover:border-r-2 hover:transition-all hover:duration-1000 hover:ease-in-out hover:shadow-[0px_0px_0px_0px_inset_#3163b2]"
   id="minimized-login"
 >
   <p class="text-sm font-semibold">Hello {{ userEmail }} !</p>
@@ -13,4 +13,7 @@
   >
     Disconnect
   </button>
+  <div
+    class="absolute w-10 h-14 -right-10 rounded-se-full rounded-ee-full bg-[#ffcd08] border-2 border-[#3163b2] flex items-center justify-center text-3xl"
+  >&#11166;</div>
 </div>

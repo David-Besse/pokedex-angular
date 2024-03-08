@@ -1,3 +1,11 @@
+<a
+  class="flex items-center justify-end bg-black text-white p-2 underline"
+  href="{{ apiUrl }}"
+  target="_blank"
+  aria-label="link to api documentation"
+>
+  Api documentations</a
+>
 <main class="w-full h-full">
   <nav class="flex justify-center items-center">
     <a routerLink="/pokemons">
@@ -8,8 +16,6 @@
       </h1>
     </a>
   </nav>
-
-<app-minimized-login></app-minimized-login>
-
+  <app-minimized-login></app-minimized-login>
   <router-outlet></router-outlet>
 </main>
