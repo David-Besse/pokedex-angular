@@ -1,6 +1,6 @@
 {
   "name": "angular-pokedex",
-  "description": "Pokedex site created with Angular 17 and server side rendered, deployed with Firebase",
+  "description": "Pokedex site created with Angular 17 and server side rendered",
   "license": "MIT",
   "author": {
     "name": "David B.",
