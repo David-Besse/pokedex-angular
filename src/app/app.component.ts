@@ -27,7 +27,7 @@ import { MinimizedLoginComponent } from './auth/login/minimized-login/minimized-
 })
 export class AppComponent implements OnInit {
   isLoginBoxMinimized: boolean = false;
-  apiUrl: string = 'http://localhost:8080/api-docs/';
+  apiUrl: string = 'https://dbwd-pokedex-api.vercel.app/api-docs/';
 
   constructor(private router: Router) {}
 
