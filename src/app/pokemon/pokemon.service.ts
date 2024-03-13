@@ -23,7 +23,7 @@ import { InformationBoxService } from '../information-box/service/information-bo
   providedIn: 'root',
 })
 export class PokemonService {
-  uri: string = 'http://localhost:8080/api/pokemons';
+  uri: string = 'https://dbwd-pokedex-api.vercel.app/api/pokemons';
   httpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
   };

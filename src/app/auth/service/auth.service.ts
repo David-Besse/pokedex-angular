@@ -13,7 +13,7 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  uri: string = 'http://localhost:8080/api';
+  uri: string = 'https://dbwd-pokedex-api.vercel.app/api';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
