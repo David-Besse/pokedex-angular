@@ -29,33 +29,18 @@ export class AuthService {
    * @return {Observable<boolean>} an observable that emits a boolean value indicating if the login was successful
    */
   login(givenEmail: string, givenPassword: string): Observable<boolean> {
-    const checkUser: Observable<boolean> = this.http
-      .post<User>(
+    return this.http
+      .post<object>(
         this.uri + '/login',
-        {
-          email: givenEmail,
-          password: givenPassword,
-        },
+        { email: givenEmail, password: givenPassword },
         this.httpOptions
       )
       .pipe(
-        map((user) => {
-          if (!user) {
-            return false;
-          }
-          return true;
-        }),
-        catchError((error) => {
-          console.error('User not found', error);
-          return of(false);
-        })
+        map(
+          (user) => !!user // if user is not null or undefined, return true, otherwise return false
+        ),
+        tap((isLogged) => (this.isLogged = isLogged))
       );
-
-    return checkUser.pipe(
-      tap((isLogged) => {
-        isLogged ? (this.isLogged = true) : (this.isLogged = false);
-      })
-    );
   }
 
   /**
