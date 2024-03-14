@@ -6,9 +6,7 @@ export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const modifiedRequest: HttpRequest<unknown> = req.clone({
-    setHeaders: {
-      Credentials: 'true',
-    },
+    withCredentials: true,
   });
 
   try {
