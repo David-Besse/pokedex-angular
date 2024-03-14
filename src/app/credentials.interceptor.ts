@@ -6,9 +6,10 @@ export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const modifiedRequest: HttpRequest<unknown> = req.clone({
-    headers: req.headers
-      .set('Access-Control-Allow-Origin', 'https://dbwd-pokedex.vercel.app')
-      .set('Credentials', 'true'),
+    setHeaders: {
+      "Access-Control-Allow-Origin": "https://dbwd-pokedex.vercel.app",
+      "Credentials": "true",
+    }
   });
 
   try {
