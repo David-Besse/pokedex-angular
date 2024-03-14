@@ -8,7 +8,7 @@
     ],
     "headers": [
         {
-            "source": "/api/(.*)",
+            "source": "https://dbwd-pokedex-api.vercel.app/(.*)",
             "headers": [
                 {
                     "key": "Access-Control-Allow-Origin",
