@@ -1,21 +1,27 @@
 <main class="w-full h-full">
-  <a
-    class="flex items-center justify-end bg-black text-white p-2 underline"
-    href="{{ apiUrl }}"
-    target="_blank"
-    aria-label="link to api documentation"
+  <nav
+    class="relative w-full h-[10%] flex flex-col justify-center items-center"
   >
-    Api documentations</a
-  >
-  <nav class="flex justify-center items-center">
-    <a routerLink="/pokemons" class="w-fit h-fit">
+    <a routerLink="/pokemons">
       <h1
-        class="text-5xl lg:text-6xl xl:text-8xl font-extrabold -bottom-3 lg:-bottom-4 xl:-bottom-6"
+        class="relative text-5xl lg:text-6xl xl:text-8xl font-extrabold top-4"
       >
         PokedeX
       </h1>
     </a>
   </nav>
+  <span
+    class="absolute bottom-0 left-0 w-fit bg-black text-white pt-1 px-2 pb-2 italic underline text-center rounded-se-xl"
+  >
+    <a
+      href="{{ apiUrl }}"
+      target="_blank"
+      aria-label="link to api documentation"
+    >
+      API documentation
+    </a>
+  </span>
+  <div class="relative"></div>
   <app-minimized-login></app-minimized-login>
   <router-outlet></router-outlet>
 </main>
