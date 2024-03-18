@@ -7,7 +7,7 @@
 </div>
 
 <div
-  *ngIf="pokemon"
+  *ngIf="pokemon && types"
   class="w-full flex flex-col justify-center items-center bg-white border-4 border-[#3163b2] rounded-xl"
 >
   <form (ngSubmit)="onSubmit()" #pokemonForm="ngForm" class="p-4">
