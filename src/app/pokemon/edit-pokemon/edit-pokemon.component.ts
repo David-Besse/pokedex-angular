@@ -17,7 +17,7 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export default class EditPokemonComponent implements OnInit {
   pokemon: Pokemon | undefined;
-  typesEventReceived: string[];
+  typesEventReceived: string[] = [];
 
   receivedTypesEvent(event: string[]): void {
     this.typesEventReceived = event;

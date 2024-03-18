@@ -5,7 +5,7 @@
   <app-loader class=""></app-loader>
 </div>
 
-<div *ngIf="pokemon && typesEventReceived">
+<div *ngIf="pokemon && typesEventReceived !== []">
   <h2 class="text-4xl font-bold mt-20 lg:mt-28 text-center px-6">
     Editer le pokémon {{ pokemon.name }}
   </h2>
@@ -17,6 +17,10 @@
         class="w-[250px] h-[250px] rounded object-cover mx-auto"
       />
     </p>
-    <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon" (typesEvent)="receivedTypesEvent($event)"></app-pokemon-form>
+    <app-pokemon-form
+      *ngIf="pokemon"
+      [pokemon]="pokemon"
+      (typesEvent)="receivedTypesEvent($event)"
+    ></app-pokemon-form>
   </div>
 </div>
