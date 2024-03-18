@@ -39,7 +39,11 @@ export class PokemonFormComponent implements OnInit {
   // we emit the constant types to the parent component
   static typesEvent: EventEmitter<string[]>;
   @Output() typesEvent: EventEmitter<string[]> = new EventEmitter();
-  emitConstant() {
+
+  /**
+   * Emits the constant value of `types` using the `typesEvent` event.
+   */
+  emitTypes() {
     this.typesEvent.emit(this.types);
   }
 
@@ -51,9 +55,10 @@ export class PokemonFormComponent implements OnInit {
    *
    */
   ngOnInit() {
-    this.pokemonService
-      .getPokemonTypesList()
-      .subscribe((types) => (this.types = types));
+    this.pokemonService.getPokemonTypesList().subscribe((types) => {
+      this.types = types;
+      this.emitTypes();
+    });
     this.isAddForm = this.router.url.includes('add');
   }
 

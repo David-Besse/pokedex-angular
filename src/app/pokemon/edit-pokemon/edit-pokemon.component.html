@@ -1,5 +1,5 @@
 <div
-  *ngIf="!pokemon || typesEventReceived"
+  *ngIf="!pokemon || !typesEventReceived"
   class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center"
 >
   <app-loader class=""></app-loader>
@@ -17,6 +17,6 @@
         class="w-[250px] h-[250px] rounded object-cover mx-auto"
       />
     </p>
-    <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-form>
+    <app-pokemon-form *ngIf="pokemon" [pokemon]="pokemon" (typesEvent)="receivedTypesEvent($event)"></app-pokemon-form>
   </div>
 </div>
