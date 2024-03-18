@@ -7,7 +7,7 @@
 // goBack(): Navigates back to the previous page based on the current URL.
 
 import { NgIf, NgFor, NgStyle } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BorderCardDirective } from '../border-card.directive';
 import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../pokemon';
@@ -35,6 +35,13 @@ export class PokemonFormComponent implements OnInit {
   @Input() pokemon: Pokemon;
   types: string[];
   isAddForm: boolean;
+
+  // we emit the constant types to the parent component
+  static typesEvent: EventEmitter<string[]>;
+  @Output() typesEvent: EventEmitter<string[]> = new EventEmitter();
+  emitConstant() {
+    this.typesEvent.emit(this.types);
+  }
 
   constructor(private router: Router, private pokemonService: PokemonService) {}
 

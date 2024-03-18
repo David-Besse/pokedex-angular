@@ -1,6 +1,6 @@
 // This class is a component for editing a Pokemon.
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../pokemon.service';
@@ -17,13 +17,12 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export default class EditPokemonComponent implements OnInit {
   pokemon: Pokemon | undefined;
+  @Output() typesEventReceived = new EventEmitter<string[]>();
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
-    private titleService: Title,
-    @Inject(PokemonFormComponent)
-    protected pokemonFormComponent: PokemonFormComponent
+    private titleService: Title
   ) {}
 
   /**
@@ -45,6 +44,14 @@ export default class EditPokemonComponent implements OnInit {
       });
     } else {
       this.pokemon = undefined;
+    }
+
+    if (PokemonFormComponent.typesEvent) {
+      PokemonFormComponent.typesEvent.subscribe((types) => {
+        this.typesEventReceived.emit(types);
+      });
+    } else {
+      console.error('typesEvent was null or undefined');
     }
   }
 
