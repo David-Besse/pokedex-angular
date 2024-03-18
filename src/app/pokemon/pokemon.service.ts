@@ -14,7 +14,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Observable, catchError, delay, map, of, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { LoginService } from '../auth/login/login.service';
 import { MinimizedLoginService } from '../auth/login/minimized-login/minimized-login.service';
 import { InformationBoxService } from '../information-box/service/information-box.service';
@@ -88,7 +88,7 @@ export class PokemonService {
     return this.http
       .get<Pokemon>(`${this.uri}/${pokemonId}`, this.httpOptions)
       .pipe(
-        delay(500), // simulate server latency for educational purposes and to show loading component
+        // delay(500), // simulate server latency for educational purposes and to show loading component
         tap(() => this.log(`fetched pokemon id=${pokemonId}`)),
         catchError((error) => this.handleError(error))
       );
@@ -102,7 +102,7 @@ export class PokemonService {
    */
   getPokemonByName(pokemonName: string): Observable<Pokemon[] | undefined> {
     return this.http.get<Pokemon[]>(`${this.uri}?name=${pokemonName}`).pipe(
-      delay(500), // simulate server latency for educational purposes and to show loading component
+      // delay(500), // simulate server latency for educational purposes and to show loading component
       tap(() => this.log(`fetched pokemon name=${pokemonName}`)),
       catchError((error) => this.handleError(error))
     );

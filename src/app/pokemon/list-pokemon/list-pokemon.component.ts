@@ -71,7 +71,7 @@ export default class ListPokemonComponent implements OnInit, AfterViewInit {
     if (this.lsInformationBox !== 'viewed') {
       setTimeout(() => {
         this.informationBoxService.open(
-          'Welcome ! The server response time has been forced to 0.5s to display the loader in some cases (edit/detail).'
+          'Welcome ! This project is a demo for learning purposes. It is not intended to be used in production.'
         );
         this.sessionStorageService.set('informationBox', 'viewed');
       }, 200);
