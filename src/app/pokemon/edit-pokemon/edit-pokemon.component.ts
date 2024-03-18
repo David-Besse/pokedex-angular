@@ -1,6 +1,6 @@
 // This class is a component for editing a Pokemon.
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../pokemon.service';
@@ -21,7 +21,9 @@ export default class EditPokemonComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
-    private titleService: Title
+    private titleService: Title,
+    @Inject(PokemonFormComponent)
+    protected pokemonFormComponent: PokemonFormComponent
   ) {}
 
   /**

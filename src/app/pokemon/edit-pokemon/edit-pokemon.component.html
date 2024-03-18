@@ -1,11 +1,11 @@
 <div
-  *ngIf="!pokemon"
+  *ngIf="!pokemon || pokemonFormComponent.types"
   class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center"
 >
   <app-loader class=""></app-loader>
 </div>
 
-<div *ngIf="pokemon">
+<div *ngIf="pokemon && pokemonFormComponent.types">
   <h2 class="text-4xl font-bold mt-20 lg:mt-28 text-center px-6">
     Editer le pokémon {{ pokemon.name }}
   </h2>
