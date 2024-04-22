@@ -5,16 +5,21 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {
   BrowserLocalStorageService,
   BrowserSessionStorageService,
 } from './browser-storage.service';
-import { httpInterceptorProviders } from './credentials.interceptor';
+import { credentialsInterceptor } from './credentials.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    httpInterceptorProviders,
+    provideHttpClient(withFetch(), withInterceptors([credentialsInterceptor])),
     importProvidersFrom(BrowserModule, FormsModule, BrowserLocalStorageService,
       BrowserSessionStorageService,),
     provideRouter(AppRoutes),
