@@ -1,4 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   if (!req || !next) {
@@ -9,9 +10,20 @@ export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
     withCredentials: true,
   });
 
-  try {
-    return next(modifiedRequest);
-  } catch (error) {
-    throw new Error(`Unhandled exception in credentialsInterceptor: ${error}`);
-  }
+  return next(modifiedRequest).pipe(
+    catchError((error) => {
+      const { status } = error;
+
+      if (error instanceof Error) {
+        if (status === 401) {
+          console.error('Unauthorized request:', error);
+        } else {
+          console.error('HTTP error:', error);
+        }
+      } else {
+        console.error('Unknown error:', error);
+      }
+      return throwError(() => error);
+    })
+  );
 };

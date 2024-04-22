@@ -3,12 +3,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  uri: string = 'https://dbwd-pokedex-api.vercel.app/api';
+  uri: string = environment.serverUrl + '/api';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

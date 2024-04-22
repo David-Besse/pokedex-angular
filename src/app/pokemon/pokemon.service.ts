@@ -18,12 +18,13 @@ import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { LoginService } from '../auth/login/login.service';
 import { MinimizedLoginService } from '../auth/login/minimized-login/minimized-login.service';
 import { InformationBoxService } from '../information-box/service/information-box.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-  uri: string = 'https://dbwd-pokedex-api.vercel.app/api/pokemons';
+  uri: string = environment.serverUrl + '/api/pokemons';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

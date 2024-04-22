@@ -46,3 +46,6 @@ gacp.bat
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Environment
+.env
