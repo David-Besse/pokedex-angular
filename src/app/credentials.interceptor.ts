@@ -1,17 +1,19 @@
-import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
-  if (!req || !next) {
-    throw new Error('Null pointer exception in credentialsInterceptor.');
+@Injectable()
+export class HttpRequestInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    req = req.clone({
+      withCredentials: true,
+    });
+
+    return next.handle(req);
   }
+}
 
-  const modifiedRequest: HttpRequest<unknown> = req.clone({
-    withCredentials: true,
-  });
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+];
 
-  try {
-    return next(modifiedRequest);
-  } catch (error) {
-    throw new Error(`Unhandled exception in credentialsInterceptor: ${error}`);
-  }
-};
