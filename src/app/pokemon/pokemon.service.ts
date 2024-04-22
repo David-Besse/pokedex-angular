@@ -28,7 +28,6 @@ export class PokemonService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'https://dbwd-pokedex.vercel.app',
-      'Access-Control-Allow-Credentials': 'true',
     }),
   };
 
