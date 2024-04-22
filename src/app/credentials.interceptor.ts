@@ -1,11 +1,11 @@
-import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 
 export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   if (!req || !next) {
     throw new Error('Null pointer exception in credentialsInterceptor.');
   }
 
-  const modifiedRequest: HttpRequest<unknown> = req.clone({
+  const modifiedRequest = req.clone({
     withCredentials: true,
   });
 
