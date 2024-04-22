@@ -5,21 +5,12 @@
 
 @font-face {
   font-family: "Pokemon";
-  src: url("./assets/Pokemon_Solid.ttf");
+  src: url("./assets/Pokemon_Solid.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Flexo-MediumIt";
-  src: url("https://db.onlinewebfonts.com/t/0bf8c2f5042b73913f04bca0ef56d686.eot");
-  src: url("https://db.onlinewebfonts.com/t/0bf8c2f5042b73913f04bca0ef56d686.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://db.onlinewebfonts.com/t/0bf8c2f5042b73913f04bca0ef56d686.woff2")
-      format("woff2"),
-    url("https://db.onlinewebfonts.com/t/0bf8c2f5042b73913f04bca0ef56d686.woff")
-      format("woff"),
-    url("https://db.onlinewebfonts.com/t/0bf8c2f5042b73913f04bca0ef56d686.ttf")
-      format("truetype"),
-    url("./assets/Flexo-MediumIt.woff2") format("woff2");
+  src: url("./assets/Flexo-MediumIt.woff2") format("woff2");
 }
 
 body {
