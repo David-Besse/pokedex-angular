@@ -25,7 +25,10 @@ import { InformationBoxService } from '../information-box/service/information-bo
 export class PokemonService {
   uri: string = 'https://dbwd-pokedex-api.vercel.app/api/pokemons';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://dbwd-pokedex.vercel.app',
+    }),
   };
 
   constructor(
