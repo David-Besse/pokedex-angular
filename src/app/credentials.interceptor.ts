@@ -9,6 +9,8 @@ export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
     withCredentials: true,
     setHeaders: {
       'Access-Control-Allow-Origin': 'https://dbwd-pokedex.vercel.app',
+      'Access-Control-Allow-Credentials': 'true',
+      'Content-Type': 'application/json',
     },
   });
 
