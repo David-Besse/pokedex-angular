@@ -6,11 +6,7 @@ export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const modifiedRequest: HttpRequest<unknown> = req.clone({
-    setHeaders: {
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    },
+    withCredentials: true,
   });
 
   try {
