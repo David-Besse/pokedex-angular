@@ -26,6 +26,7 @@ export class PokemonService {
   uri: string = 'https://dbwd-pokedex-api.vercel.app/api/pokemons';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    withCredentials: true,
   };
 
   constructor(
