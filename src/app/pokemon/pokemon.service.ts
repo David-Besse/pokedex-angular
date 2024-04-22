@@ -26,7 +26,6 @@ export class PokemonService {
   uri: string = 'https://dbwd-pokedex-api.vercel.app/api/pokemons';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    withCredentials: true,
   };
 
   constructor(
@@ -73,7 +72,7 @@ export class PokemonService {
    * @return {Observable<Pokemon[]>} an observable of the list of pokemons
    */
   getPokemonList(): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.uri).pipe(
+    return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
       tap(() => this.log('fetched pokemons')),
       catchError((error) => this.handleError(error))
     );
