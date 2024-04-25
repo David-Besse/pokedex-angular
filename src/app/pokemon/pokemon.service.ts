@@ -29,6 +29,7 @@ export class PokemonService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
+    withCredentials: true,
   };
 
   constructor(

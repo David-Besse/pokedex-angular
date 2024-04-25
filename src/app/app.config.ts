@@ -19,7 +19,7 @@ import { credentialsInterceptor } from './credentials.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([credentialsInterceptor]), withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([credentialsInterceptor])),
     importProvidersFrom(
       BrowserModule,
       FormsModule,
