@@ -60,13 +60,13 @@
         id="hp"
         name="hp"
         required
-        pattern="^[0-9]{1,3}$"
+        pattern="^[1-9]{1,3}$"
         [(ngModel)]="pokemon.hp"
         #hp="ngModel"
         autocomplete="off"
       />
       <div [hidden]="hp.valid || hp.pristine" class="text-red-600">
-        the pokemon's HP must be between 0 and 999.
+        the pokemon's HP must be between 1 and 999.
       </div>
     </div>
 
@@ -79,13 +79,13 @@
         id="cp"
         name="cp"
         required
-        pattern="^[0-9]{1,2}$"
+        pattern="^[1-9]{1,2}$"
         [(ngModel)]="pokemon.cp"
         #cp="ngModel"
         autocomplete="off"
       />
       <div [hidden]="cp.valid || cp.pristine" class="text-red-600">
-        the pokemon damage must be between 0 and 99.
+        the pokemon damage must be between 1 and 99.
       </div>
     </div>
 

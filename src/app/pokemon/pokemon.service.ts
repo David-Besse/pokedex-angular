@@ -152,12 +152,20 @@ export class PokemonService {
    * @return {Observable<Pokemon>} an observable of the added Pokemon
    */
   addPokemon(pokemon: Pokemon): Observable<Pokemon> {
-    return this.http.post<Pokemon>(this.uri, pokemon, this.httpOptions).pipe(
-      tap((newPokemon: Pokemon) =>
-        this.log(`added hero w/ id=${newPokemon.id}`)
-      ),
-      catchError((error) => this.handleError(error))
-    );
+    return this.http
+      .post<Pokemon>(
+        this.uri,
+        {
+          ...pokemon,
+        },
+        this.httpOptions
+      )
+      .pipe(
+        tap((newPokemon: Pokemon) =>
+          this.log(`added hero w/ id=${newPokemon.id}`)
+        ),
+        catchError((error) => this.handleError(error))
+      );
   }
 
   /**
@@ -167,12 +175,10 @@ export class PokemonService {
    * @return {Observable<null>} An observable of null
    */
   deletePokemon(pokemonId: number): Observable<null> {
-    return this.http
-      .delete<null>(`${this.uri}/${pokemonId}`)
-      .pipe(
-        tap(() => this.log(`deleted pokemon id=${pokemonId}`)),
-        catchError((error) => this.handleError(error))
-      );
+    return this.http.delete<null>(`${this.uri}/${pokemonId}`).pipe(
+      tap(() => this.log(`deleted pokemon id=${pokemonId}`)),
+      catchError((error) => this.handleError(error))
+    );
   }
 
   /**

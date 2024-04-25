@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { BrowserSessionStorageService } from '../../browser-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,10 @@ export class AuthService {
   };
   isLogged: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private sessionStorageService: BrowserSessionStorageService
+  ) {}
 
   /**
    * Logs in the user with the given email and password.
@@ -26,15 +30,20 @@ export class AuthService {
    */
   login(givenEmail: string, givenPassword: string): Observable<boolean> {
     return this.http
-      .post<object>(
+      .post<{ email: string; accessToken: string }>(
         this.uri + '/login',
         { email: givenEmail, password: givenPassword },
         this.httpOptions
       )
       .pipe(
-        map(
-          (user) => !!user // if user is not null or undefined, return true, otherwise return false
-        ),
+        map((user) => {
+          if (user) {
+            this.sessionStorageService.set('pokedex_token', user.accessToken);
+            return true;
+          } else {
+            return false;
+          }
+        }),
         tap((isLogged) => (this.isLogged = isLogged))
       );
   }

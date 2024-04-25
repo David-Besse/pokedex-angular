@@ -11,9 +11,9 @@ export class Pokemon {
     name: string = '...',
     hp: number = 0,
     cp: number = 0,
-    picture: string = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/xxx.png',
+    picture: string = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
     types: string[] = ['Normal'],
-    created: string = new Date().toString()
+    created: string = new Date().toISOString()
   ) {
     this.name = name;
     this.hp = hp;
