@@ -46,7 +46,6 @@ export class LoginService {
     this.isLoginMinimizedDisplayed = true;
     this.sessionStorageService.set('userId', email);
     this.sessionStorageService.set('login', 'true');
-    this.router.navigate(['/pokemons']);
   }
 
   /**

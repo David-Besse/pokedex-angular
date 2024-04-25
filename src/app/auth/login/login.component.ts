@@ -72,6 +72,7 @@ export default class LoginComponent implements OnInit {
     this.isLoginPageHidden = true;
     this.minimizedLoginService.isLoginMinimizedDisplayed.next(true);
     this.minimizedLoginService.userEmail.next(this.email);
+    this.router.navigate(['/pokemons']);
   }
 
   /**
