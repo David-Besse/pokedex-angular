@@ -30,7 +30,6 @@ export class PokemonService {
       'Content-Type': 'application/json',
     }),
     withCredentials: true,
-    observe: 'response' as 'HttpResponse',
   };
 
   constructor(
