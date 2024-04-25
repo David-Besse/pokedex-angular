@@ -29,7 +29,6 @@ export class PokemonService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
-    withCredentials: true,
   };
 
   constructor(
@@ -76,7 +75,7 @@ export class PokemonService {
    * @return {Observable<Pokemon[]>} an observable of the list of pokemons
    */
   getPokemonList(): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
+    return this.http.get<Pokemon[]>(this.uri).pipe(
       tap(() => this.log('fetched pokemons')),
       catchError((error) => this.handleError(error))
     );
@@ -119,7 +118,7 @@ export class PokemonService {
    */
   getPokemonTypesList(): Observable<string[]> {
     // Send an HTTP GET request to the specified URI to fetch a list of Pokemon data
-    return this.http.get<Pokemon[]>(this.uri, this.httpOptions).pipe(
+    return this.http.get<Pokemon[]>(this.uri).pipe(
       // Log a message to the console indicating that the Pokemon list is being fetched to get types
       tap(() => this.log('fetched pokemons list to get types')),
       // Handle any errors that may occur during the HTTP GET request, returning an empty array in case of failure
@@ -169,7 +168,7 @@ export class PokemonService {
    */
   deletePokemon(pokemonId: number): Observable<null> {
     return this.http
-      .delete<null>(`${this.uri}/${pokemonId}`, this.httpOptions)
+      .delete<null>(`${this.uri}/${pokemonId}`)
       .pipe(
         tap(() => this.log(`deleted pokemon id=${pokemonId}`)),
         catchError((error) => this.handleError(error))

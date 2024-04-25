@@ -6,12 +6,15 @@ export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
     throw new Error('Null pointer exception in credentialsInterceptor.');
   }
 
-  console.log('req: ', req);
-  console.log('withCredentials: ', req.withCredentials);
+  if (req.method === 'GET') {
+    return next(req);
+  }
 
   const modifiedRequest = req.clone({
     withCredentials: true,
   });
+  
+  console.log('modifiedreq: ', modifiedRequest);
 
   return next(modifiedRequest).pipe(
     catchError((error) => {
